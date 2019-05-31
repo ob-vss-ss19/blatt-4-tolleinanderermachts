@@ -1,6 +1,7 @@
 package roomcontrol
 
 type CinemaRoom struct {
-	Name  string
-	Seats [][]bool
+	Name        string
+	Rows        int
+	SeatsPerRow int
 }
