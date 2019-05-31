@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+service MovieControl {
+    rpc AddMovie(AddMovieRequest) returns (RequestResponse) {
+    }
+    rpc DeleteMovie(DeleteMovieRequest) returns (RequestResponse) {
+    }
+    rpc GetMovie(GetMovieRequest) returns (GetMovieResponse) {
+    }
+}
+
+message AddMovieRequest {
+    string title = 1;
+}
+
+message RequestResponse {
+    bool succeeded = 1;
+    string cause = 2;
+}
+
+message DeleteMovieRequest {
+    int32 id = 1;
+}
+
+message GetMovieRequest {
+}
+
+message MovieData {
+    int32 id = 1;
+    string title = 2;
+}
+message GetMovieResponse {
+    repeated MovieData data = 1;
+}
