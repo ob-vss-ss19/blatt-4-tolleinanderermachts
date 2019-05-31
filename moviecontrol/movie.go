@@ -1,4 +1,4 @@
-package moviecontrol
+package main
 
 type Movie struct {
 	Title string
