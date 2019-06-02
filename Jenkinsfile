@@ -14,7 +14,7 @@ pipeline {
                 docker { image 'obraun/vss-protoactor-jenkins' }
             }
             steps {
-                sh 'echo run tests...'
+                sh 'cd moviecontrol && go test'
             }
         }
         stage('Lint') {
