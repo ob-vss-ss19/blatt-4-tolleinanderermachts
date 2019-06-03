@@ -1,9 +1,10 @@
 package main
 
 import (
+	"testing"
+
 	proto "github.com/ob-vss-ss19/blatt-4-tolleinanderermachts/proto"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestMovieAdd(t *testing.T) {
