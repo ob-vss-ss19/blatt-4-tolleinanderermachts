@@ -22,7 +22,7 @@ pipeline {
                 docker { image 'obraun/vss-protoactor-jenkins' }
             }
             steps {
-                sh 'echo Lint'
+                sh 'golangci-lint run --deadline 20m --enable-all'
             }
         }
         stage('Build Docker Image') {
