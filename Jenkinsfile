@@ -6,7 +6,7 @@ pipeline {
                 docker { image 'obraun/vss-protoactor-jenkins' }
             }
             steps {
-                sh 'echo no files yet present'
+                sh 'cd moviecontrol && go build'
             }
         }
         stage('Test') {
