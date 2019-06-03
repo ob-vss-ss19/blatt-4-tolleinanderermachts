@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/micro/go-micro"
 	proto "github.com/ob-vss-ss19/blatt-4-tolleinanderermachts/proto"
 )

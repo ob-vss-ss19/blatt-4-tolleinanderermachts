@@ -6,7 +6,7 @@ pipeline {
                 docker { image 'obraun/vss-protoactor-jenkins' }
             }
             steps {
-                sh 'echo no files yet present'
+                sh 'cd moviecontrol && go build'
             }
         }
         stage('Test') {
@@ -14,7 +14,7 @@ pipeline {
                 docker { image 'obraun/vss-protoactor-jenkins' }
             }
             steps {
-                sh 'echo run tests...'
+                sh 'cd moviecontrol && go test -cover'
             }
         }
         stage('Lint') {
@@ -22,7 +22,7 @@ pipeline {
                 docker { image 'obraun/vss-protoactor-jenkins' }
             }
             steps {
-                sh 'echo Lint'
+                sh 'golangci-lint run --deadline 20m --enable-all'
             }
         }
         stage('Build Docker Image') {

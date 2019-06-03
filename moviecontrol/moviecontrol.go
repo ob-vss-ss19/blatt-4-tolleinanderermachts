@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+
 	proto "github.com/ob-vss-ss19/blatt-4-tolleinanderermachts/proto"
 )
 
@@ -26,7 +27,8 @@ func (ctrl *MovieControl) AddMovie(ctx context.Context, req *proto.AddMovieReque
 	return nil
 }
 
-func (ctrl *MovieControl) DeleteMovie(ctx context.Context, req *proto.DeleteMovieRequest, rsp *proto.RequestResponse) error {
+func (ctrl *MovieControl) DeleteMovie(ctx context.Context, req *proto.DeleteMovieRequest,
+	rsp *proto.RequestResponse) error {
 	if req.Id < 0 || int(req.Id) >= len(ctrl.Movies) {
 		rsp.Succeeded = false
 		rsp.Cause = "index out of bounds"
