@@ -1,5 +1,6 @@
 package reservationcontrol
 
+/*
 type entry struct {
 	Row  int
 	Seat int
@@ -9,3 +10,4 @@ type Reservation struct {
 	Show    int
 	entries []entry
 }
+*/

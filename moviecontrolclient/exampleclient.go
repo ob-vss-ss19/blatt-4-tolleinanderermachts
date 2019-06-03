@@ -1,5 +1,6 @@
 package moviecontrolclient
 
+/*
 import (
 	"context"
 	"fmt"
@@ -25,3 +26,4 @@ func main() {
 	// Print response
 	fmt.Println(rsp.Greeting)
 }
+*/
