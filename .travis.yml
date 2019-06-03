@@ -4,5 +4,6 @@ before_script:
     - curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | bash -s -- -b $GOPATH/bin v1.16.0
 
 script:
-    - echo run tests...
-    - echo golangci-lint run --deadline 20m --enable-all
+    - cd moviecontrol && go build
+    - cd moviecontrol && go test -v -race
+    - golangci-lint run --deadline 20m --enable-all
