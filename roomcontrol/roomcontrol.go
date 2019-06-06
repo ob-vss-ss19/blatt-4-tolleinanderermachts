@@ -45,7 +45,8 @@ func (ctrl *RoomControl) GetRoom(ctx context.Context, req *proto.GetRoomRequest,
 	data := make([]*proto.RoomData, 0)
 
 	for k, v := range ctrl.Rooms {
-		data = append(data, &proto.RoomData{Id: int32(k), Name: v.Name, Rows: int32(v.Rows), SeatsPerRow: int32(v.SeatsPerRow)})
+		data = append(data, &proto.RoomData{Id: int32(k), Name: v.Name, Rows: int32(v.Rows),
+			SeatsPerRow: int32(v.SeatsPerRow)})
 	}
 	rsp.Data = data
 	return nil
