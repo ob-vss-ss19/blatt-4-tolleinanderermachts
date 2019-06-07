@@ -26,7 +26,7 @@ func TestRoomAddWithSavedCheck(t *testing.T) {
 	response := proto.RequestResponse{}
 
 	_ = roomControl.AddRoom(context.TODO(),
-		&proto.AddRoomRequest{Name: "TestRoomAddWithSavedCheck", Rows: 0, SeatsPerRow: 0}, &response)
+		&proto.AddRoomRequest{Name: "TestRoomAddWithSavedCheck", Rows: 5, SeatsPerRow: 7}, &response)
 
 	assert.True(t, response.Succeeded, response.Cause)
 
@@ -36,6 +36,8 @@ func TestRoomAddWithSavedCheck(t *testing.T) {
 
 	assert.EqualValues(t, 1, len(RoomResponse.Data), "Room number should be 1!")
 	assert.Equal(t, "TestRoomAddWithSavedCheck", RoomResponse.Data[0].Name, "Room title mismatch!")
+	assert.Equal(t, 5, RoomResponse.Data[0].Rows, "Room rows mismatch!")
+	assert.Equal(t, 7, RoomResponse.Data[0].SeatsPerRow, "Room seats mismatch!")
 	assert.EqualValues(t, 0, RoomResponse.Data[0].Id, "id mismatch")
 }
 
@@ -76,7 +78,8 @@ func TestRoomDeleteWithSavedCheck(t *testing.T) {
 
 	response := proto.RequestResponse{}
 
-	_ = roomControl.AddRoom(context.TODO(), &proto.AddRoomRequest{Name: "TestRoomDeleteWithSavedCheck"}, &response)
+	_ = roomControl.AddRoom(context.TODO(),
+		&proto.AddRoomRequest{Name: "TestRoomDeleteWithSavedCheck", Rows: 5, SeatsPerRow: 7}, &response)
 
 	assert.True(t, response.Succeeded, response.Cause)
 
@@ -86,6 +89,8 @@ func TestRoomDeleteWithSavedCheck(t *testing.T) {
 
 	assert.EqualValues(t, 1, len(RoomResponse.Data), "Room number should be 1!")
 	assert.Equal(t, "TestRoomDeleteWithSavedCheck", RoomResponse.Data[0].Name, "Room title mismatch!")
+	assert.Equal(t, 5, RoomResponse.Data[0].Rows, "Room rows mismatch!")
+	assert.Equal(t, 7, RoomResponse.Data[0].SeatsPerRow, "Room seats mismatch!")
 	assert.EqualValues(t, 0, RoomResponse.Data[0].Id, "id mismatch")
 
 	_ = roomControl.DeleteRoom(context.TODO(), &proto.DeleteRoomRequest{Id: 0}, &response)
