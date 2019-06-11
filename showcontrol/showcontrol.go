@@ -54,7 +54,7 @@ func (ctrl *ShowControl) CheckSeat(ctx context.Context,
 		rsp.Cause = "Show not found"
 	} else {
 		if !req.Write {
-			fmt.Printf("checking seat %d:%d with: %d", req.Row, req.Seat, show.Seats[req.Row][req.Seat])
+			fmt.Printf("checking seat %d:%d with: %t", req.Row, req.Seat, show.Seats[req.Row][req.Seat])
 			if show.Seats[req.Row][req.Seat] {
 				rsp.Succeeded = false
 			} else {
@@ -62,7 +62,7 @@ func (ctrl *ShowControl) CheckSeat(ctx context.Context,
 			}
 
 		} else {
-			fmt.Printf("writing seat %d:%d with: %d", req.Row, req.Seat, req.Value)
+			fmt.Printf("writing seat %d:%d with: %t", req.Row, req.Seat, req.Value)
 			show.Seats[req.Row][req.Seat] = req.Value
 			rsp.Succeeded = true
 		}
