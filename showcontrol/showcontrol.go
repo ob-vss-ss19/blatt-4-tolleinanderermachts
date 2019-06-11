@@ -38,7 +38,8 @@ func (ctrl *ShowControl) AddShow(ctx context.Context, req *proto.AddShowRequest,
 	return nil
 }
 
-func (ctrl *ShowControl) DeleteShow(ctx context.Context, req *proto.DeleteShowRequest, rsp *proto.RequestResponse) error {
+func (ctrl *ShowControl) DeleteShow(ctx context.Context,
+	req *proto.DeleteShowRequest, rsp *proto.RequestResponse) error {
 	delete(ctrl.Shows, int(req.Id))
 	println("show deleted")
 	return nil
