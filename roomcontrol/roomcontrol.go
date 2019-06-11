@@ -54,3 +54,7 @@ func (ctrl *RoomControl) GetRoom(ctx context.Context, req *proto.GetRoomRequest,
 	rsp.Data = data
 	return nil
 }
+
+func (ctrl *RoomControl) GetSingleRoom(ctx context.Context, req *proto.GetSingleRoomRequest, rsp *proto.RoomData) error {
+	return nil
+}
