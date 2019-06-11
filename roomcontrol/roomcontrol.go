@@ -13,7 +13,8 @@ type CinemaRoom struct {
 }
 
 type RoomControl struct {
-	Rooms []CinemaRoom
+	NextId int
+	Rooms  map[int]CinemaRoom
 }
 
 func (ctrl *RoomControl) AddRoom(ctx context.Context, req *proto.AddRoomRequest, rsp *proto.RequestResponse) error {
@@ -24,19 +25,21 @@ func (ctrl *RoomControl) AddRoom(ctx context.Context, req *proto.AddRoomRequest,
 			return nil
 		}
 	}
-	ctrl.Rooms = append(ctrl.Rooms, CinemaRoom{Name: req.Name, Rows: int(req.Rows), SeatsPerRow: int(req.SeatsPerRow)})
+	ctrl.Rooms[ctrl.NextId] = CinemaRoom{Name: req.Name, Rows: int(req.Rows), SeatsPerRow: int(req.SeatsPerRow)}
+	ctrl.NextId++
 	rsp.Succeeded = true
 	return nil
 }
 
 func (ctrl *RoomControl) DeleteRoom(ctx context.Context, req *proto.DeleteRoomRequest,
 	rsp *proto.RequestResponse) error {
-	if req.Id < 0 || int(req.Id) >= len(ctrl.Rooms) {
+	_, ok := ctrl.Rooms[int(req.Id)]
+	if !ok {
 		rsp.Succeeded = false
-		rsp.Cause = "index out of bounds"
+		rsp.Cause = "key does not exist"
 		return nil
 	}
-	ctrl.Rooms = append(ctrl.Rooms[:req.Id], ctrl.Rooms[req.Id+1:]...)
+	delete(ctrl.Rooms, int(req.Id))
 	rsp.Succeeded = true
 	return nil
 }

@@ -10,7 +10,7 @@ import (
 
 func TestRoomAdd(t *testing.T) {
 
-	roomControl := RoomControl{}
+	roomControl := RoomControl{NextId: 0, Rooms: make(map[int]CinemaRoom)}
 
 	response := proto.RequestResponse{}
 
@@ -21,7 +21,7 @@ func TestRoomAdd(t *testing.T) {
 
 func TestRoomAddWithSavedCheck(t *testing.T) {
 
-	roomControl := RoomControl{}
+	roomControl := RoomControl{NextId: 0, Rooms: make(map[int]CinemaRoom)}
 
 	response := proto.RequestResponse{}
 
@@ -43,7 +43,7 @@ func TestRoomAddWithSavedCheck(t *testing.T) {
 
 func TestRoomAddDoubleRoom(t *testing.T) {
 
-	roomControl := RoomControl{}
+	roomControl := RoomControl{NextId: 0, Rooms: make(map[int]CinemaRoom)}
 
 	response := proto.RequestResponse{}
 
@@ -59,7 +59,7 @@ func TestRoomAddDoubleRoom(t *testing.T) {
 
 func TestRoomDelete(t *testing.T) {
 
-	roomControl := RoomControl{}
+	roomControl := RoomControl{NextId: 0, Rooms: make(map[int]CinemaRoom)}
 
 	response := proto.RequestResponse{}
 
@@ -74,7 +74,7 @@ func TestRoomDelete(t *testing.T) {
 
 func TestRoomDeleteWithSavedCheck(t *testing.T) {
 
-	roomControl := RoomControl{}
+	roomControl := RoomControl{NextId: 0, Rooms: make(map[int]CinemaRoom)}
 
 	response := proto.RequestResponse{}
 
@@ -104,31 +104,31 @@ func TestRoomDeleteWithSavedCheck(t *testing.T) {
 
 func TestRoomDeleteEmpty(t *testing.T) {
 
-	roomControl := RoomControl{}
+	roomControl := RoomControl{NextId: 0, Rooms: make(map[int]CinemaRoom)}
 
 	response := proto.RequestResponse{}
 
 	_ = roomControl.DeleteRoom(context.TODO(), &proto.DeleteRoomRequest{Id: 0}, &response)
 
 	assert.False(t, response.Succeeded)
-	assert.Equal(t, "index out of bounds", response.Cause)
+	assert.Equal(t, "key does not exist", response.Cause)
 }
 
 func TestRoomDeleteNegative(t *testing.T) {
 
-	roomControl := RoomControl{}
+	roomControl := RoomControl{NextId: 0, Rooms: make(map[int]CinemaRoom)}
 
 	response := proto.RequestResponse{}
 
 	_ = roomControl.DeleteRoom(context.TODO(), &proto.DeleteRoomRequest{Id: -1}, &response)
 
 	assert.False(t, response.Succeeded)
-	assert.Equal(t, "index out of bounds", response.Cause)
+	assert.Equal(t, "key does not exist", response.Cause)
 }
 
 func TestRoomDeleteNotFound(t *testing.T) {
 
-	roomControl := RoomControl{}
+	roomControl := RoomControl{NextId: 0, Rooms: make(map[int]CinemaRoom)}
 
 	response := proto.RequestResponse{}
 
@@ -139,5 +139,5 @@ func TestRoomDeleteNotFound(t *testing.T) {
 	_ = roomControl.DeleteRoom(context.TODO(), &proto.DeleteRoomRequest{Id: 2}, &response)
 
 	assert.False(t, response.Succeeded)
-	assert.Equal(t, "index out of bounds", response.Cause)
+	assert.Equal(t, "key does not exist", response.Cause)
 }
