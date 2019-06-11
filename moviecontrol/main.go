@@ -11,7 +11,7 @@ func main() {
 	service := micro.NewService(
 		micro.Name("moviectrl"))
 	service.Init()
-	err := proto.RegisterMovieControlHandler(service.Server(), new(MovieControl))
+	err := proto.RegisterMovieControlHandler(service.Server(), &MovieControl{NextId: 0, Movies: make(map[int]Movie)})
 
 	if err != nil {
 		fmt.Println(err)
