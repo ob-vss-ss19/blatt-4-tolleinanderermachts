@@ -29,6 +29,7 @@ message AddMovieRequest {
 message RequestResponse {
     bool succeeded = 1;
     string cause = 2;
+    int32 id = 3;
 }
 
 message DeleteMovieRequest {
@@ -53,6 +54,8 @@ service RoomControl {
     }
     rpc GetRoom (GetRoomRequest) returns (GetRoomResponse) {
     }
+    rpc GetSingleRoom (GetSingleRoomRequest) returns (RoomData) {
+    }
 }
 
 message AddRoomRequest {
@@ -68,6 +71,10 @@ message DeleteRoomRequest {
 message GetRoomRequest {
 }
 
+message GetSingleRoomRequest {
+    int32 id = 1;
+}
+
 message RoomData {
     int32 id = 1;
     string name = 2;
@@ -79,13 +86,12 @@ message GetRoomResponse {
     repeated RoomData data = 1;
 }
 
-
 service ShowControl {
     rpc AddShow (AddShowRequest) returns (RequestResponse) {
     }
     rpc DeleteShow (DeleteShowRequest) returns (RequestResponse) {
     }
-    rpc CheckSeat (AvailableSeatRequest) returns (GetRoomResponse) {
+    rpc CheckSeat (AvailableSeatRequest) returns (RequestResponse) {
     }
 }
 
@@ -102,4 +108,6 @@ message AvailableSeatRequest {
     int32 id = 1;
     int32 row = 2;
     int32 seat = 3;
+    bool write = 4;
+    bool value = 5;
 }
