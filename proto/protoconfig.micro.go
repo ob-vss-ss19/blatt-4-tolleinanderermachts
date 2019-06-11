@@ -188,7 +188,7 @@ func (h *movieControlHandler) GetMovie(ctx context.Context, in *GetMovieRequest,
 type RoomControlService interface {
 	AddRoom(ctx context.Context, in *AddRoomRequest, opts ...client.CallOption) (*RequestResponse, error)
 	DeleteRoom(ctx context.Context, in *DeleteRoomRequest, opts ...client.CallOption) (*RequestResponse, error)
-	GetRoom(ctx context.Context, in *GetRoomRequest, opts ...client.CallOption) (*GetRoomResponse, error)
+	GetRoom(ctx context.Context, in *GetRoomRequest, opts ...client.CallOption) (*RoomDataResponse, error)
 }
 
 type roomControlService struct {
@@ -229,9 +229,9 @@ func (c *roomControlService) DeleteRoom(ctx context.Context, in *DeleteRoomReque
 	return out, nil
 }
 
-func (c *roomControlService) GetRoom(ctx context.Context, in *GetRoomRequest, opts ...client.CallOption) (*GetRoomResponse, error) {
+func (c *roomControlService) GetRoom(ctx context.Context, in *GetRoomRequest, opts ...client.CallOption) (*RoomDataResponse, error) {
 	req := c.c.NewRequest(c.name, "RoomControl.GetRoom", in)
-	out := new(GetRoomResponse)
+	out := new(RoomDataResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -244,14 +244,14 @@ func (c *roomControlService) GetRoom(ctx context.Context, in *GetRoomRequest, op
 type RoomControlHandler interface {
 	AddRoom(context.Context, *AddRoomRequest, *RequestResponse) error
 	DeleteRoom(context.Context, *DeleteRoomRequest, *RequestResponse) error
-	GetRoom(context.Context, *GetRoomRequest, *GetRoomResponse) error
+	GetRoom(context.Context, *GetRoomRequest, *RoomDataResponse) error
 }
 
 func RegisterRoomControlHandler(s server.Server, hdlr RoomControlHandler, opts ...server.HandlerOption) error {
 	type roomControl interface {
 		AddRoom(ctx context.Context, in *AddRoomRequest, out *RequestResponse) error
 		DeleteRoom(ctx context.Context, in *DeleteRoomRequest, out *RequestResponse) error
-		GetRoom(ctx context.Context, in *GetRoomRequest, out *GetRoomResponse) error
+		GetRoom(ctx context.Context, in *GetRoomRequest, out *RoomDataResponse) error
 	}
 	type RoomControl struct {
 		roomControl
@@ -272,7 +272,7 @@ func (h *roomControlHandler) DeleteRoom(ctx context.Context, in *DeleteRoomReque
 	return h.RoomControlHandler.DeleteRoom(ctx, in, out)
 }
 
-func (h *roomControlHandler) GetRoom(ctx context.Context, in *GetRoomRequest, out *GetRoomResponse) error {
+func (h *roomControlHandler) GetRoom(ctx context.Context, in *GetRoomRequest, out *RoomDataResponse) error {
 	return h.RoomControlHandler.GetRoom(ctx, in, out)
 }
 
@@ -281,7 +281,7 @@ func (h *roomControlHandler) GetRoom(ctx context.Context, in *GetRoomRequest, ou
 type ShowControlService interface {
 	AddShow(ctx context.Context, in *AddShowRequest, opts ...client.CallOption) (*RequestResponse, error)
 	DeleteShow(ctx context.Context, in *DeleteShowRequest, opts ...client.CallOption) (*RequestResponse, error)
-	CheckSeat(ctx context.Context, in *AvailableSeatRequest, opts ...client.CallOption) (*GetRoomResponse, error)
+	CheckSeat(ctx context.Context, in *AvailableSeatRequest, opts ...client.CallOption) (*RequestResponse, error)
 }
 
 type showControlService struct {
@@ -322,9 +322,9 @@ func (c *showControlService) DeleteShow(ctx context.Context, in *DeleteShowReque
 	return out, nil
 }
 
-func (c *showControlService) CheckSeat(ctx context.Context, in *AvailableSeatRequest, opts ...client.CallOption) (*GetRoomResponse, error) {
+func (c *showControlService) CheckSeat(ctx context.Context, in *AvailableSeatRequest, opts ...client.CallOption) (*RequestResponse, error) {
 	req := c.c.NewRequest(c.name, "ShowControl.CheckSeat", in)
-	out := new(GetRoomResponse)
+	out := new(RequestResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -337,14 +337,14 @@ func (c *showControlService) CheckSeat(ctx context.Context, in *AvailableSeatReq
 type ShowControlHandler interface {
 	AddShow(context.Context, *AddShowRequest, *RequestResponse) error
 	DeleteShow(context.Context, *DeleteShowRequest, *RequestResponse) error
-	CheckSeat(context.Context, *AvailableSeatRequest, *GetRoomResponse) error
+	CheckSeat(context.Context, *AvailableSeatRequest, *RequestResponse) error
 }
 
 func RegisterShowControlHandler(s server.Server, hdlr ShowControlHandler, opts ...server.HandlerOption) error {
 	type showControl interface {
 		AddShow(ctx context.Context, in *AddShowRequest, out *RequestResponse) error
 		DeleteShow(ctx context.Context, in *DeleteShowRequest, out *RequestResponse) error
-		CheckSeat(ctx context.Context, in *AvailableSeatRequest, out *GetRoomResponse) error
+		CheckSeat(ctx context.Context, in *AvailableSeatRequest, out *RequestResponse) error
 	}
 	type ShowControl struct {
 		showControl
@@ -365,6 +365,6 @@ func (h *showControlHandler) DeleteShow(ctx context.Context, in *DeleteShowReque
 	return h.ShowControlHandler.DeleteShow(ctx, in, out)
 }
 
-func (h *showControlHandler) CheckSeat(ctx context.Context, in *AvailableSeatRequest, out *GetRoomResponse) error {
+func (h *showControlHandler) CheckSeat(ctx context.Context, in *AvailableSeatRequest, out *RequestResponse) error {
 	return h.ShowControlHandler.CheckSeat(ctx, in, out)
 }
