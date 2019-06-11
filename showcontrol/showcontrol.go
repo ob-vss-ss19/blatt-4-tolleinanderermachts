@@ -22,13 +22,23 @@ type ShowControl struct {
 
 func (ctrl *ShowControl) AddShow(ctx context.Context, req *proto.AddShowRequest, rsp *proto.RequestResponse) error {
 	println("adding show... calling roomcontrol for seat size")
-	caller := proto.NewRoomControlService("roomctrl", ctrl.Service.Client())
-	roomData, _ := caller.GetSingleRoom(context.TODO(), &proto.GetSingleRoomRequest{Id: req.RoomId})
+	a := make([][]bool, 5)
+	if ctrl.Service != nil {
+		caller := proto.NewRoomControlService("roomctrl", ctrl.Service.Client())
+		roomData, _ := caller.GetSingleRoom(context.TODO(), &proto.GetSingleRoomRequest{Id: req.RoomId})
 
-	println("allocating space...")
-	a := make([][]bool, roomData.Rows)
-	for i := range a {
-		a[i] = make([]bool, roomData.SeatsPerRow)
+		println("allocating space...")
+		a = make([][]bool, roomData.Rows)
+		for i := range a {
+			a[i] = make([]bool, roomData.SeatsPerRow)
+		}
+	} else {
+		//for testing
+		println("TEST ENVIRONMENT: allocating space...")
+		a = make([][]bool, 5)
+		for i := range a {
+			a[i] = make([]bool, 5)
+		}
 	}
 
 	ctrl.Shows[ctrl.NextID] = Show{Movie: int(req.MovieId), Room: int(req.RoomId), Seats: a}
@@ -41,8 +51,15 @@ func (ctrl *ShowControl) AddShow(ctx context.Context, req *proto.AddShowRequest,
 
 func (ctrl *ShowControl) DeleteShow(ctx context.Context,
 	req *proto.DeleteShowRequest, rsp *proto.RequestResponse) error {
+	println("deleting show")
+	_, ok := ctrl.Shows[int(req.Id)]
+	if !ok {
+		rsp.Succeeded = false
+		rsp.Cause = "key does not exist"
+		return nil
+	}
 	delete(ctrl.Shows, int(req.Id))
-	println("show deleted")
+	println("show deleted: " + string(req.Id))
 	return nil
 }
 
