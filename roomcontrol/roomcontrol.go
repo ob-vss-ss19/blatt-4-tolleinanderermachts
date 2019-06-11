@@ -57,5 +57,14 @@ func (ctrl *RoomControl) GetRoom(ctx context.Context, req *proto.GetRoomRequest,
 
 func (ctrl *RoomControl) GetSingleRoom(ctx context.Context,
 	req *proto.GetSingleRoomRequest, rsp *proto.RoomData) error {
+	data, ok := ctrl.Rooms[int(req.Id)]
+	if ok {
+		rsp.Id = req.Id
+		rsp.Rows = int32(data.Rows)
+		rsp.SeatsPerRow = int32(data.SeatsPerRow)
+		rsp.Name = data.Name
+	} else {
+		rsp.Id = -1
+	}
 	return nil
 }
