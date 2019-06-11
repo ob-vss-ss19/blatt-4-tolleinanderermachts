@@ -88,7 +88,8 @@ func TestShowCheckSeat(t *testing.T) {
 
 	assert.True(t, response.Succeeded, response.Cause)
 
-	_ = ShowControl.CheckSeat(context.TODO(), &proto.AvailableSeatRequest{Id: 0, Row: 2, Seat: 2, Write: true, Value: true}, &response)
+	_ = ShowControl.CheckSeat(context.TODO(),
+		&proto.AvailableSeatRequest{Id: 0, Row: 2, Seat: 2, Write: true, Value: true}, &response)
 
 	assert.True(t, response.Succeeded, response.Cause)
 
