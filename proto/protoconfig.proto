@@ -52,7 +52,9 @@ service RoomControl {
     }
     rpc DeleteRoom (DeleteRoomRequest) returns (RequestResponse) {
     }
-    rpc GetRoom (GetRoomRequest) returns (RoomDataResponse) {
+    rpc GetRoom (GetRoomRequest) returns (GetRoomResponse) {
+    }
+    rpc GetSingleRoom (GetSingleRoomRequest) returns (RoomData) {
     }
 }
 
@@ -67,14 +69,21 @@ message DeleteRoomRequest {
 }
 
 message GetRoomRequest {
+}
+
+message GetSingleRoomRequest {
     int32 id = 1;
 }
 
-message RoomDataResponse {
+message RoomData {
     int32 id = 1;
     string name = 2;
     int32 rows = 3;
     int32 seatsPerRow = 4;
+}
+
+message GetRoomResponse {
+    repeated RoomData data = 1;
 }
 
 service ShowControl {

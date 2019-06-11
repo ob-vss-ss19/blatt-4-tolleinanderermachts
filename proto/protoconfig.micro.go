@@ -188,7 +188,8 @@ func (h *movieControlHandler) GetMovie(ctx context.Context, in *GetMovieRequest,
 type RoomControlService interface {
 	AddRoom(ctx context.Context, in *AddRoomRequest, opts ...client.CallOption) (*RequestResponse, error)
 	DeleteRoom(ctx context.Context, in *DeleteRoomRequest, opts ...client.CallOption) (*RequestResponse, error)
-	GetRoom(ctx context.Context, in *GetRoomRequest, opts ...client.CallOption) (*RoomDataResponse, error)
+	GetRoom(ctx context.Context, in *GetRoomRequest, opts ...client.CallOption) (*GetRoomResponse, error)
+	GetSingleRoom(ctx context.Context, in *GetSingleRoomRequest, opts ...client.CallOption) (*RoomData, error)
 }
 
 type roomControlService struct {
@@ -229,9 +230,19 @@ func (c *roomControlService) DeleteRoom(ctx context.Context, in *DeleteRoomReque
 	return out, nil
 }
 
-func (c *roomControlService) GetRoom(ctx context.Context, in *GetRoomRequest, opts ...client.CallOption) (*RoomDataResponse, error) {
+func (c *roomControlService) GetRoom(ctx context.Context, in *GetRoomRequest, opts ...client.CallOption) (*GetRoomResponse, error) {
 	req := c.c.NewRequest(c.name, "RoomControl.GetRoom", in)
-	out := new(RoomDataResponse)
+	out := new(GetRoomResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *roomControlService) GetSingleRoom(ctx context.Context, in *GetSingleRoomRequest, opts ...client.CallOption) (*RoomData, error) {
+	req := c.c.NewRequest(c.name, "RoomControl.GetSingleRoom", in)
+	out := new(RoomData)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -244,14 +255,16 @@ func (c *roomControlService) GetRoom(ctx context.Context, in *GetRoomRequest, op
 type RoomControlHandler interface {
 	AddRoom(context.Context, *AddRoomRequest, *RequestResponse) error
 	DeleteRoom(context.Context, *DeleteRoomRequest, *RequestResponse) error
-	GetRoom(context.Context, *GetRoomRequest, *RoomDataResponse) error
+	GetRoom(context.Context, *GetRoomRequest, *GetRoomResponse) error
+	GetSingleRoom(context.Context, *GetSingleRoomRequest, *RoomData) error
 }
 
 func RegisterRoomControlHandler(s server.Server, hdlr RoomControlHandler, opts ...server.HandlerOption) error {
 	type roomControl interface {
 		AddRoom(ctx context.Context, in *AddRoomRequest, out *RequestResponse) error
 		DeleteRoom(ctx context.Context, in *DeleteRoomRequest, out *RequestResponse) error
-		GetRoom(ctx context.Context, in *GetRoomRequest, out *RoomDataResponse) error
+		GetRoom(ctx context.Context, in *GetRoomRequest, out *GetRoomResponse) error
+		GetSingleRoom(ctx context.Context, in *GetSingleRoomRequest, out *RoomData) error
 	}
 	type RoomControl struct {
 		roomControl
@@ -272,8 +285,12 @@ func (h *roomControlHandler) DeleteRoom(ctx context.Context, in *DeleteRoomReque
 	return h.RoomControlHandler.DeleteRoom(ctx, in, out)
 }
 
-func (h *roomControlHandler) GetRoom(ctx context.Context, in *GetRoomRequest, out *RoomDataResponse) error {
+func (h *roomControlHandler) GetRoom(ctx context.Context, in *GetRoomRequest, out *GetRoomResponse) error {
 	return h.RoomControlHandler.GetRoom(ctx, in, out)
+}
+
+func (h *roomControlHandler) GetSingleRoom(ctx context.Context, in *GetSingleRoomRequest, out *RoomData) error {
+	return h.RoomControlHandler.GetSingleRoom(ctx, in, out)
 }
 
 // Client API for ShowControl service

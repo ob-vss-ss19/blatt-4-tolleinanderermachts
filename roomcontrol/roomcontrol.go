@@ -44,15 +44,13 @@ func (ctrl *RoomControl) DeleteRoom(ctx context.Context, req *proto.DeleteRoomRe
 	return nil
 }
 
-func (ctrl *RoomControl) GetRoom(ctx context.Context, req *proto.GetRoomRequest, rsp *proto.RoomDataResponse) error {
-	/*data := make([]*proto.RoomData, 0)
+func (ctrl *RoomControl) GetRoom(ctx context.Context, req *proto.GetRoomRequest, rsp *proto.GetRoomResponse) error {
+	data := make([]*proto.RoomData, 0)
 
 	for k, v := range ctrl.Rooms {
 		data = append(data, &proto.RoomData{Id: int32(k), Name: v.Name, Rows: int32(v.Rows),
 			SeatsPerRow: int32(v.SeatsPerRow)})
 	}
 	rsp.Data = data
-	return nil
-	*/
 	return nil
 }
