@@ -18,6 +18,7 @@ type RoomControl struct {
 }
 
 func (ctrl *RoomControl) AddRoom(ctx context.Context, req *proto.AddRoomRequest, rsp *proto.RequestResponse) error {
+	println("add room request")
 	for _, v := range ctrl.Rooms {
 		if v.Name == req.Name {
 			rsp.Succeeded = false
@@ -28,11 +29,13 @@ func (ctrl *RoomControl) AddRoom(ctx context.Context, req *proto.AddRoomRequest,
 	ctrl.Rooms[ctrl.NextID] = CinemaRoom{Name: req.Name, Rows: int(req.Rows), SeatsPerRow: int(req.SeatsPerRow)}
 	ctrl.NextID++
 	rsp.Succeeded = true
+	println("added room: " + req.Name)
 	return nil
 }
 
 func (ctrl *RoomControl) DeleteRoom(ctx context.Context, req *proto.DeleteRoomRequest,
 	rsp *proto.RequestResponse) error {
+	println("delete room request")
 	_, ok := ctrl.Rooms[int(req.Id)]
 	if !ok {
 		rsp.Succeeded = false
@@ -41,10 +44,12 @@ func (ctrl *RoomControl) DeleteRoom(ctx context.Context, req *proto.DeleteRoomRe
 	}
 	delete(ctrl.Rooms, int(req.Id))
 	rsp.Succeeded = true
+	println("deleted room: " + string(req.Id))
 	return nil
 }
 
 func (ctrl *RoomControl) GetRoom(ctx context.Context, req *proto.GetRoomRequest, rsp *proto.GetRoomResponse) error {
+	println("get room request")
 	data := make([]*proto.RoomData, 0)
 
 	for k, v := range ctrl.Rooms {
@@ -52,10 +57,22 @@ func (ctrl *RoomControl) GetRoom(ctx context.Context, req *proto.GetRoomRequest,
 			SeatsPerRow: int32(v.SeatsPerRow)})
 	}
 	rsp.Data = data
+	println("returned all room datas")
 	return nil
 }
 
 func (ctrl *RoomControl) GetSingleRoom(ctx context.Context,
 	req *proto.GetSingleRoomRequest, rsp *proto.RoomData) error {
+	println("get single room request")
+	data, ok := ctrl.Rooms[int(req.Id)]
+	if ok {
+		rsp.Id = req.Id
+		rsp.Rows = int32(data.Rows)
+		rsp.SeatsPerRow = int32(data.SeatsPerRow)
+		rsp.Name = data.Name
+	} else {
+		rsp.Id = -1
+	}
+	println("returned specific room data: " + string(req.Id))
 	return nil
 }
