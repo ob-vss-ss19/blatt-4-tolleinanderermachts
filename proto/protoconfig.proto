@@ -79,3 +79,27 @@ message GetRoomResponse {
     repeated RoomData data = 1;
 }
 
+
+service ShowControl {
+    rpc AddShow (AddShowRequest) returns (RequestResponse) {
+    }
+    rpc DeleteShow (DeleteShowRequest) returns (RequestResponse) {
+    }
+    rpc CheckSeat (AvailableSeatRequest) returns (GetRoomResponse) {
+    }
+}
+
+message AddShowRequest {
+    int32 movieId = 1;
+    int32 roomId = 2;
+}
+
+message DeleteShowRequest {
+    int32 id = 1;
+}
+
+message AvailableSeatRequest {
+    int32 id = 1;
+    int32 row = 2;
+    int32 seat = 3;
+}
