@@ -7,6 +7,7 @@ pipeline {
             }
             steps {
                 sh 'cd moviecontrol && go build'
+                sh 'cd roomcontrol && go build'
             }
         }
         stage('Test') {
@@ -15,6 +16,7 @@ pipeline {
             }
             steps {
                 sh 'cd moviecontrol && go test -cover'
+                sh 'cd roomcontrol && go test -cover'
             }
         }
         stage('Lint') {
