@@ -10,7 +10,7 @@ import (
 
 func TestRoomAdd(t *testing.T) {
 
-	roomControl := RoomControl{NextId: 0, Rooms: make(map[int]CinemaRoom)}
+	roomControl := RoomControl{NextID: 0, Rooms: make(map[int]CinemaRoom)}
 
 	response := proto.RequestResponse{}
 
@@ -21,7 +21,7 @@ func TestRoomAdd(t *testing.T) {
 
 func TestRoomAddWithSavedCheck(t *testing.T) {
 
-	roomControl := RoomControl{NextId: 0, Rooms: make(map[int]CinemaRoom)}
+	roomControl := RoomControl{NextID: 0, Rooms: make(map[int]CinemaRoom)}
 
 	response := proto.RequestResponse{}
 
@@ -43,7 +43,7 @@ func TestRoomAddWithSavedCheck(t *testing.T) {
 
 func TestRoomAddDoubleRoom(t *testing.T) {
 
-	roomControl := RoomControl{NextId: 0, Rooms: make(map[int]CinemaRoom)}
+	roomControl := RoomControl{NextID: 0, Rooms: make(map[int]CinemaRoom)}
 
 	response := proto.RequestResponse{}
 
@@ -59,7 +59,7 @@ func TestRoomAddDoubleRoom(t *testing.T) {
 
 func TestRoomDelete(t *testing.T) {
 
-	roomControl := RoomControl{NextId: 0, Rooms: make(map[int]CinemaRoom)}
+	roomControl := RoomControl{NextID: 0, Rooms: make(map[int]CinemaRoom)}
 
 	response := proto.RequestResponse{}
 
@@ -74,7 +74,7 @@ func TestRoomDelete(t *testing.T) {
 
 func TestRoomDeleteWithSavedCheck(t *testing.T) {
 
-	roomControl := RoomControl{NextId: 0, Rooms: make(map[int]CinemaRoom)}
+	roomControl := RoomControl{NextID: 0, Rooms: make(map[int]CinemaRoom)}
 
 	response := proto.RequestResponse{}
 
@@ -104,7 +104,7 @@ func TestRoomDeleteWithSavedCheck(t *testing.T) {
 
 func TestRoomDeleteEmpty(t *testing.T) {
 
-	roomControl := RoomControl{NextId: 0, Rooms: make(map[int]CinemaRoom)}
+	roomControl := RoomControl{NextID: 0, Rooms: make(map[int]CinemaRoom)}
 
 	response := proto.RequestResponse{}
 
@@ -116,7 +116,7 @@ func TestRoomDeleteEmpty(t *testing.T) {
 
 func TestRoomDeleteNegative(t *testing.T) {
 
-	roomControl := RoomControl{NextId: 0, Rooms: make(map[int]CinemaRoom)}
+	roomControl := RoomControl{NextID: 0, Rooms: make(map[int]CinemaRoom)}
 
 	response := proto.RequestResponse{}
 
@@ -128,7 +128,7 @@ func TestRoomDeleteNegative(t *testing.T) {
 
 func TestRoomDeleteNotFound(t *testing.T) {
 
-	roomControl := RoomControl{NextId: 0, Rooms: make(map[int]CinemaRoom)}
+	roomControl := RoomControl{NextID: 0, Rooms: make(map[int]CinemaRoom)}
 
 	response := proto.RequestResponse{}
 

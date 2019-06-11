@@ -11,7 +11,7 @@ type Movie struct {
 }
 
 type MovieControl struct {
-	NextId int
+	NextID int
 	Movies map[int]Movie
 }
 
@@ -23,8 +23,8 @@ func (ctrl *MovieControl) AddMovie(ctx context.Context, req *proto.AddMovieReque
 			return nil
 		}
 	}
-	ctrl.Movies[ctrl.NextId] = Movie{Title: req.Title}
-	ctrl.NextId++
+	ctrl.Movies[ctrl.NextID] = Movie{Title: req.Title}
+	ctrl.NextID++
 	rsp.Succeeded = true
 	return nil
 }

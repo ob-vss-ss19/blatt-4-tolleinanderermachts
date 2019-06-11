@@ -10,7 +10,7 @@ import (
 
 func TestMovieAdd(t *testing.T) {
 
-	movieControl := MovieControl{NextId: 0, Movies: make(map[int]Movie)}
+	movieControl := MovieControl{NextID: 0, Movies: make(map[int]Movie)}
 
 	response := proto.RequestResponse{}
 
@@ -21,7 +21,7 @@ func TestMovieAdd(t *testing.T) {
 
 func TestMovieAddWithSavedCheck(t *testing.T) {
 
-	movieControl := MovieControl{NextId: 0, Movies: make(map[int]Movie)}
+	movieControl := MovieControl{NextID: 0, Movies: make(map[int]Movie)}
 
 	response := proto.RequestResponse{}
 
@@ -40,7 +40,7 @@ func TestMovieAddWithSavedCheck(t *testing.T) {
 
 func TestMovieAddDoubleMovie(t *testing.T) {
 
-	movieControl := MovieControl{NextId: 0, Movies: make(map[int]Movie)}
+	movieControl := MovieControl{NextID: 0, Movies: make(map[int]Movie)}
 
 	response := proto.RequestResponse{}
 
@@ -56,7 +56,7 @@ func TestMovieAddDoubleMovie(t *testing.T) {
 
 func TestMovieDelete(t *testing.T) {
 
-	movieControl := MovieControl{NextId: 0, Movies: make(map[int]Movie)}
+	movieControl := MovieControl{NextID: 0, Movies: make(map[int]Movie)}
 
 	response := proto.RequestResponse{}
 
@@ -71,7 +71,7 @@ func TestMovieDelete(t *testing.T) {
 
 func TestMovieDeleteWithSavedCheck(t *testing.T) {
 
-	movieControl := MovieControl{NextId: 0, Movies: make(map[int]Movie)}
+	movieControl := MovieControl{NextID: 0, Movies: make(map[int]Movie)}
 
 	response := proto.RequestResponse{}
 
@@ -98,7 +98,7 @@ func TestMovieDeleteWithSavedCheck(t *testing.T) {
 
 func TestMovieDeleteEmpty(t *testing.T) {
 
-	movieControl := MovieControl{NextId: 0, Movies: make(map[int]Movie)}
+	movieControl := MovieControl{NextID: 0, Movies: make(map[int]Movie)}
 
 	response := proto.RequestResponse{}
 
@@ -110,7 +110,7 @@ func TestMovieDeleteEmpty(t *testing.T) {
 
 func TestMovieDeleteNegative(t *testing.T) {
 
-	movieControl := MovieControl{NextId: 0, Movies: make(map[int]Movie)}
+	movieControl := MovieControl{NextID: 0, Movies: make(map[int]Movie)}
 
 	response := proto.RequestResponse{}
 
@@ -122,7 +122,7 @@ func TestMovieDeleteNegative(t *testing.T) {
 
 func TestMovieDeleteNotFound(t *testing.T) {
 
-	movieControl := MovieControl{NextId: 0, Movies: make(map[int]Movie)}
+	movieControl := MovieControl{NextID: 0, Movies: make(map[int]Movie)}
 
 	response := proto.RequestResponse{}
 

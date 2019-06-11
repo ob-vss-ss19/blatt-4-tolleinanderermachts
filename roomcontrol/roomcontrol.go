@@ -13,7 +13,7 @@ type CinemaRoom struct {
 }
 
 type RoomControl struct {
-	NextId int
+	NextID int
 	Rooms  map[int]CinemaRoom
 }
 
@@ -25,8 +25,8 @@ func (ctrl *RoomControl) AddRoom(ctx context.Context, req *proto.AddRoomRequest,
 			return nil
 		}
 	}
-	ctrl.Rooms[ctrl.NextId] = CinemaRoom{Name: req.Name, Rows: int(req.Rows), SeatsPerRow: int(req.SeatsPerRow)}
-	ctrl.NextId++
+	ctrl.Rooms[ctrl.NextID] = CinemaRoom{Name: req.Name, Rows: int(req.Rows), SeatsPerRow: int(req.SeatsPerRow)}
+	ctrl.NextID++
 	rsp.Succeeded = true
 	return nil
 }
