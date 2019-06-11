@@ -275,3 +275,96 @@ func (h *roomControlHandler) DeleteRoom(ctx context.Context, in *DeleteRoomReque
 func (h *roomControlHandler) GetRoom(ctx context.Context, in *GetRoomRequest, out *GetRoomResponse) error {
 	return h.RoomControlHandler.GetRoom(ctx, in, out)
 }
+
+// Client API for ShowControl service
+
+type ShowControlService interface {
+	AddShow(ctx context.Context, in *AddShowRequest, opts ...client.CallOption) (*RequestResponse, error)
+	DeleteShow(ctx context.Context, in *DeleteShowRequest, opts ...client.CallOption) (*RequestResponse, error)
+	CheckSeat(ctx context.Context, in *AvailableSeatRequest, opts ...client.CallOption) (*GetRoomResponse, error)
+}
+
+type showControlService struct {
+	c    client.Client
+	name string
+}
+
+func NewShowControlService(name string, c client.Client) ShowControlService {
+	if c == nil {
+		c = client.NewClient()
+	}
+	if len(name) == 0 {
+		name = "showcontrol"
+	}
+	return &showControlService{
+		c:    c,
+		name: name,
+	}
+}
+
+func (c *showControlService) AddShow(ctx context.Context, in *AddShowRequest, opts ...client.CallOption) (*RequestResponse, error) {
+	req := c.c.NewRequest(c.name, "ShowControl.AddShow", in)
+	out := new(RequestResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *showControlService) DeleteShow(ctx context.Context, in *DeleteShowRequest, opts ...client.CallOption) (*RequestResponse, error) {
+	req := c.c.NewRequest(c.name, "ShowControl.DeleteShow", in)
+	out := new(RequestResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *showControlService) CheckSeat(ctx context.Context, in *AvailableSeatRequest, opts ...client.CallOption) (*GetRoomResponse, error) {
+	req := c.c.NewRequest(c.name, "ShowControl.CheckSeat", in)
+	out := new(GetRoomResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Server API for ShowControl service
+
+type ShowControlHandler interface {
+	AddShow(context.Context, *AddShowRequest, *RequestResponse) error
+	DeleteShow(context.Context, *DeleteShowRequest, *RequestResponse) error
+	CheckSeat(context.Context, *AvailableSeatRequest, *GetRoomResponse) error
+}
+
+func RegisterShowControlHandler(s server.Server, hdlr ShowControlHandler, opts ...server.HandlerOption) error {
+	type showControl interface {
+		AddShow(ctx context.Context, in *AddShowRequest, out *RequestResponse) error
+		DeleteShow(ctx context.Context, in *DeleteShowRequest, out *RequestResponse) error
+		CheckSeat(ctx context.Context, in *AvailableSeatRequest, out *GetRoomResponse) error
+	}
+	type ShowControl struct {
+		showControl
+	}
+	h := &showControlHandler{hdlr}
+	return s.Handle(s.NewHandler(&ShowControl{h}, opts...))
+}
+
+type showControlHandler struct {
+	ShowControlHandler
+}
+
+func (h *showControlHandler) AddShow(ctx context.Context, in *AddShowRequest, out *RequestResponse) error {
+	return h.ShowControlHandler.AddShow(ctx, in, out)
+}
+
+func (h *showControlHandler) DeleteShow(ctx context.Context, in *DeleteShowRequest, out *RequestResponse) error {
+	return h.ShowControlHandler.DeleteShow(ctx, in, out)
+}
+
+func (h *showControlHandler) CheckSeat(ctx context.Context, in *AvailableSeatRequest, out *GetRoomResponse) error {
+	return h.ShowControlHandler.CheckSeat(ctx, in, out)
+}
