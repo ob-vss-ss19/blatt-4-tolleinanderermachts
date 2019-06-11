@@ -22,7 +22,7 @@ type ShowControl struct {
 
 func (ctrl *ShowControl) AddShow(ctx context.Context, req *proto.AddShowRequest, rsp *proto.RequestResponse) error {
 	println("adding show... calling roomcontrol for seat size")
-	a := make([][]bool, 5)
+	var a [][]bool
 	if ctrl.Service != nil {
 		caller := proto.NewRoomControlService("roomctrl", ctrl.Service.Client())
 		roomData, _ := caller.GetSingleRoom(context.TODO(), &proto.GetSingleRoomRequest{Id: req.RoomId})
@@ -76,6 +76,7 @@ func (ctrl *ShowControl) CheckSeat(ctx context.Context,
 			fmt.Printf("checking seat %d:%d with: %t", req.Row, req.Seat, show.Seats[req.Row][req.Seat])
 			if show.Seats[req.Row][req.Seat] {
 				rsp.Succeeded = false
+				rsp.Cause = "seat occupied"
 			} else {
 				rsp.Succeeded = true
 			}

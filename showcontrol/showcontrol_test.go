@@ -73,3 +73,39 @@ func TestShowDeleteNotFound(t *testing.T) {
 	assert.False(t, response.Succeeded)
 	assert.Equal(t, "key does not exist", response.Cause)
 }
+
+func TestShowCheckSeat(t *testing.T) {
+
+	ShowControl := ShowControl{NextID: 0, Shows: make(map[int]Show)}
+
+	response := proto.RequestResponse{}
+
+	_ = ShowControl.AddShow(context.TODO(), &proto.AddShowRequest{MovieId: 0, RoomId: 0}, &response)
+
+	assert.True(t, response.Succeeded, response.Cause)
+
+	_ = ShowControl.CheckSeat(context.TODO(), &proto.AvailableSeatRequest{Id: 0, Row: 2, Seat: 2}, &response)
+
+	assert.True(t, response.Succeeded, response.Cause)
+
+	_ = ShowControl.CheckSeat(context.TODO(), &proto.AvailableSeatRequest{Id: 0, Row: 2, Seat: 2, Write: true, Value: true}, &response)
+
+	assert.True(t, response.Succeeded, response.Cause)
+
+	_ = ShowControl.CheckSeat(context.TODO(), &proto.AvailableSeatRequest{Id: 0, Row: 2, Seat: 2}, &response)
+
+	assert.False(t, response.Succeeded)
+	assert.Equal(t, "seat occupied", response.Cause)
+}
+
+func TestShowCheckSeatEmptyShow(t *testing.T) {
+
+	ShowControl := ShowControl{NextID: 0, Shows: make(map[int]Show)}
+
+	response := proto.RequestResponse{}
+
+	_ = ShowControl.CheckSeat(context.TODO(), &proto.AvailableSeatRequest{Id: 0, Row: 2, Seat: 2}, &response)
+
+	assert.False(t, response.Succeeded)
+	assert.Equal(t, "Show not found", response.Cause)
+}
