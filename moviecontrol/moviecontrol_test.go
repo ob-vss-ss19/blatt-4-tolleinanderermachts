@@ -10,7 +10,7 @@ import (
 
 func TestMovieAdd(t *testing.T) {
 
-	movieControl := MovieControl{}
+	movieControl := MovieControl{NextID: 0, Movies: make(map[int]Movie)}
 
 	response := proto.RequestResponse{}
 
@@ -21,7 +21,7 @@ func TestMovieAdd(t *testing.T) {
 
 func TestMovieAddWithSavedCheck(t *testing.T) {
 
-	movieControl := MovieControl{}
+	movieControl := MovieControl{NextID: 0, Movies: make(map[int]Movie)}
 
 	response := proto.RequestResponse{}
 
@@ -40,7 +40,7 @@ func TestMovieAddWithSavedCheck(t *testing.T) {
 
 func TestMovieAddDoubleMovie(t *testing.T) {
 
-	movieControl := MovieControl{}
+	movieControl := MovieControl{NextID: 0, Movies: make(map[int]Movie)}
 
 	response := proto.RequestResponse{}
 
@@ -56,7 +56,7 @@ func TestMovieAddDoubleMovie(t *testing.T) {
 
 func TestMovieDelete(t *testing.T) {
 
-	movieControl := MovieControl{}
+	movieControl := MovieControl{NextID: 0, Movies: make(map[int]Movie)}
 
 	response := proto.RequestResponse{}
 
@@ -71,7 +71,7 @@ func TestMovieDelete(t *testing.T) {
 
 func TestMovieDeleteWithSavedCheck(t *testing.T) {
 
-	movieControl := MovieControl{}
+	movieControl := MovieControl{NextID: 0, Movies: make(map[int]Movie)}
 
 	response := proto.RequestResponse{}
 
@@ -98,31 +98,31 @@ func TestMovieDeleteWithSavedCheck(t *testing.T) {
 
 func TestMovieDeleteEmpty(t *testing.T) {
 
-	movieControl := MovieControl{}
+	movieControl := MovieControl{NextID: 0, Movies: make(map[int]Movie)}
 
 	response := proto.RequestResponse{}
 
 	_ = movieControl.DeleteMovie(context.TODO(), &proto.DeleteMovieRequest{Id: 0}, &response)
 
 	assert.False(t, response.Succeeded)
-	assert.Equal(t, "index out of bounds", response.Cause)
+	assert.Equal(t, "key does not exist", response.Cause)
 }
 
 func TestMovieDeleteNegative(t *testing.T) {
 
-	movieControl := MovieControl{}
+	movieControl := MovieControl{NextID: 0, Movies: make(map[int]Movie)}
 
 	response := proto.RequestResponse{}
 
 	_ = movieControl.DeleteMovie(context.TODO(), &proto.DeleteMovieRequest{Id: -1}, &response)
 
 	assert.False(t, response.Succeeded)
-	assert.Equal(t, "index out of bounds", response.Cause)
+	assert.Equal(t, "key does not exist", response.Cause)
 }
 
 func TestMovieDeleteNotFound(t *testing.T) {
 
-	movieControl := MovieControl{}
+	movieControl := MovieControl{NextID: 0, Movies: make(map[int]Movie)}
 
 	response := proto.RequestResponse{}
 
@@ -133,5 +133,5 @@ func TestMovieDeleteNotFound(t *testing.T) {
 	_ = movieControl.DeleteMovie(context.TODO(), &proto.DeleteMovieRequest{Id: 2}, &response)
 
 	assert.False(t, response.Succeeded)
-	assert.Equal(t, "index out of bounds", response.Cause)
+	assert.Equal(t, "key does not exist", response.Cause)
 }

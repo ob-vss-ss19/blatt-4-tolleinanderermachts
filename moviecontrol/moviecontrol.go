@@ -11,7 +11,8 @@ type Movie struct {
 }
 
 type MovieControl struct {
-	Movies []Movie
+	NextID int
+	Movies map[int]Movie
 }
 
 func (ctrl *MovieControl) AddMovie(ctx context.Context, req *proto.AddMovieRequest, rsp *proto.RequestResponse) error {
@@ -22,19 +23,21 @@ func (ctrl *MovieControl) AddMovie(ctx context.Context, req *proto.AddMovieReque
 			return nil
 		}
 	}
-	ctrl.Movies = append(ctrl.Movies, Movie{Title: req.Title})
+	ctrl.Movies[ctrl.NextID] = Movie{Title: req.Title}
+	ctrl.NextID++
 	rsp.Succeeded = true
 	return nil
 }
 
 func (ctrl *MovieControl) DeleteMovie(ctx context.Context, req *proto.DeleteMovieRequest,
 	rsp *proto.RequestResponse) error {
-	if req.Id < 0 || int(req.Id) >= len(ctrl.Movies) {
+	_, ok := ctrl.Movies[int(req.Id)]
+	if !ok {
 		rsp.Succeeded = false
-		rsp.Cause = "index out of bounds"
+		rsp.Cause = "key does not exist"
 		return nil
 	}
-	ctrl.Movies = append(ctrl.Movies[:req.Id], ctrl.Movies[req.Id+1:]...)
+	delete(ctrl.Movies, int(req.Id))
 	rsp.Succeeded = true
 	return nil
 }
