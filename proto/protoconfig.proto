@@ -115,3 +115,29 @@ message AvailableSeatRequest {
     bool write = 4;
     bool value = 5;
 }
+
+service UserControl {
+    rpc AddUser (AddUserRequest) returns (RequestResponse) {
+    }
+    rpc DeleteUser (DeleteUserRequest) returns (RequestResponse) {
+    }
+    rpc CheckUserReservation (CheckUserReservationRequest) returns (RequestResponse) {
+    }
+}
+
+message AddUserRequest {
+    string name = 1;
+}
+
+message DeleteUserRequest {
+    int32 id = 1;
+}
+
+message CheckUserReservationRequest {
+    int32 id = 1;
+}
+
+message UserData {
+    int32 id = 1;
+    string title = 2;
+}
