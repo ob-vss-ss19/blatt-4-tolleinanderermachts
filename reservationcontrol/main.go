@@ -1,4 +1,4 @@
-package usercontrol
+package main
 
 import (
 	"fmt"
@@ -9,9 +9,9 @@ import (
 
 func main() {
 	service := micro.NewService(
-		micro.Name("userctrl"))
+		micro.Name("roomctrl"))
 	service.Init()
-	err := proto.RegisterUserControlHandler(service.Server(), &UserControl{NextID: 0, Users: make(map[int]User)})
+	err := proto.RegisterReservationControlHandler(service.Server(), &ReservationControl{NextID: 0, Reservations: make(map[int32]proto.Reservation)})
 
 	if err != nil {
 		fmt.Println(err)
