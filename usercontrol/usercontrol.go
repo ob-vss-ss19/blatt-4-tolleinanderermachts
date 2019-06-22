@@ -6,6 +6,7 @@ import (
 
 	proto "github.com/ob-vss-ss19/blatt-4-tolleinanderermachts/proto"
 )
+
 type User struct {
 	Name         string
 	Reservations []int
@@ -13,7 +14,7 @@ type User struct {
 
 type UserControl struct {
 	NextID int
-	Users map[int]User
+	Users  map[int]User
 }
 
 func (ctrl *UserControl) AddUser(ctx context.Context, req *proto.AddUserRequest, rsp *proto.RequestResponse) error {
