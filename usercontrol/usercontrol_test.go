@@ -65,7 +65,8 @@ func TestUserCheckUserReservationWithReservations(t *testing.T) {
 	_ = UserControl.AddUser(context.TODO(), &proto.AddUserRequest{Name: "Albert"}, &response)
 	seat := proto.Seat{Column: 1, Row: 1}
 	reservation := proto.Reservation{Id: 0, UserId: response.Id, Seats: []*proto.Seat{&seat}, ShowId: 0, Active: true}
-	_ = UserControl.AddUserReservation(context.TODO(), &proto.AddUserReservationRequest{UserId: response.Id, ReservationId: reservation.Id}, &response)
+	_ = UserControl.AddUserReservation(context.TODO(),
+		&proto.AddUserReservationRequest{UserId: response.Id, ReservationId: reservation.Id}, &response)
 
 	_ = UserControl.CheckUserReservation(context.TODO(), &proto.CheckUserReservationRequest{Id: response.Id}, &response)
 
@@ -78,5 +79,9 @@ func TestUserAddReservation(t *testing.T) {
 
 	response := proto.RequestResponse{}
 
-	_ = UserControl.AddUserReservation(context.TODO(), &proto.AddUserReservationRequest{ReservationId: 2, UserId: 3}, &response)
+	_ = UserControl.AddUserReservation(context.TODO(), &proto.AddUserReservationRequest{ReservationId: 2, UserId: 3},
+		&response)
+
+	assert.False(t, response.Succeeded)
+	assert.Equal(t, "user id does not exist", response.Cause)
 }

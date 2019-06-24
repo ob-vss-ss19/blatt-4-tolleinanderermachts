@@ -26,7 +26,8 @@ func TestReservationActivateWrongResId(t *testing.T) {
 
 	response := proto.ReservationResponse{}
 
-	err := ReservationControl.ActivateReservation(context.TODO(), &proto.ActivateReservationRequest{ReservationId: 5}, &response)
+	err := ReservationControl.ActivateReservation(context.TODO(), &proto.ActivateReservationRequest{ReservationId: 5},
+		&response)
 
 	assert.Equal(t, "could not find the given reservationId: 5", err.Error())
 }
@@ -38,7 +39,8 @@ func TestReservationActivateWrongUserId(t *testing.T) {
 
 	response := proto.ReservationResponse{}
 
-	err := ReservationControl.ActivateReservation(context.TODO(), &proto.ActivateReservationRequest{ReservationId: 1, UserId: 4}, &response)
+	err := ReservationControl.ActivateReservation(context.TODO(),
+		&proto.ActivateReservationRequest{ReservationId: 1, UserId: 4}, &response)
 
 	assert.Equal(t, "The userId does not match the reservations one", err.Error())
 }
@@ -51,7 +53,8 @@ func TestReservationActivate(t *testing.T) {
 
 	response := proto.ReservationResponse{}
 
-	_ = ReservationControl.ActivateReservation(context.TODO(), &proto.ActivateReservationRequest{ReservationId: 0, UserId: 1}, &response)
+	_ = ReservationControl.ActivateReservation(context.TODO(),
+		&proto.ActivateReservationRequest{ReservationId: 0, UserId: 1}, &response)
 
 	assert.Equal(t, response.Reservation.UserId, reservation.UserId)
 	assert.Equal(t, response.Reservation.ShowId, reservation.ShowId)
@@ -71,7 +74,8 @@ func TestReservationControl_GetReservationsForUser(t *testing.T) {
 
 	response := proto.GetReservationsForUserResponse{}
 
-	_ = ReservationControl.GetReservationsForUser(context.TODO(), &proto.GetReservationsForUserRequest{UserId: 1}, &response)
+	_ = ReservationControl.GetReservationsForUser(context.TODO(), &proto.GetReservationsForUserRequest{UserId: 1},
+		&response)
 
 	assert.Equal(t, response.Reservations[0].UserId, reservation.UserId)
 	assert.Equal(t, response.Reservations[0].ShowId, reservation.ShowId)
@@ -85,7 +89,7 @@ func TestReservationControl_GetReservationsForUser(t *testing.T) {
 
 func TestReservationControl_RemoveReservationWrongId(t *testing.T) {
 
-	ReservationControl := ReservationControl{NextID: 0, Reservations: make(map[int32]proto.Reservation, 0)}
+	ReservationControl := ReservationControl{NextID: 0, Reservations: make(map[int32]proto.Reservation)}
 
 	response := proto.RequestResponse{}
 

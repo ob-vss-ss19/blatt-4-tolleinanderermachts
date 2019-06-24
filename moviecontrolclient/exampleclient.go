@@ -38,7 +38,8 @@ func main() {
 		fmt.Println(err)
 	}
 	fmt.Println(rsp.Succeeded)
-	rsp, err = showClient.CheckSeat(context.TODO(), &proto.AvailableSeatRequest{Id: 0, Row: 1, Seat: 5, Write: true, Value: true})
+	rsp, err = showClient.CheckSeat(context.TODO(),
+		&proto.AvailableSeatRequest{Id: 0, Row: 1, Seat: 5, Write: true, Value: true})
 	if err != nil {
 		fmt.Println(err)
 	}

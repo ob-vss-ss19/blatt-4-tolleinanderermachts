@@ -29,25 +29,27 @@ func (ctrl *UserControl) AddUser(ctx context.Context, req *proto.AddUserRequest,
 	return nil
 }
 
-func (ctrl *UserControl) AddUserReservation(ctx context.Context, req *proto.AddUserReservationRequest, rsp *proto.RequestResponse) error {
+func (ctrl *UserControl) AddUserReservation(ctx context.Context, req *proto.AddUserReservationRequest,
+	rsp *proto.RequestResponse) error {
 	fmt.Println("add user reservation request")
-	_, ok := ctrl.Users[int32(req.UserId)]
+	_, ok := ctrl.Users[req.UserId]
 	if !ok {
 		rsp.Succeeded = false
 		rsp.Cause = "user id does not exist"
 		return nil
 	}
-	user := ctrl.Users[int32(req.UserId)]
+	user := ctrl.Users[req.UserId]
 	user.Reservations = append(user.Reservations, req.ReservationId)
-	ctrl.Users[int32(req.UserId)] = user
+	ctrl.Users[req.UserId] = user
 	rsp.Succeeded = true
 	fmt.Printf("added reservation: %d to %d\n", req.ReservationId, req.UserId)
 	return nil
 }
 
-func (ctrl *UserControl) DeleteUser(ctx context.Context, req *proto.DeleteUserRequest, rsp *proto.RequestResponse) error {
+func (ctrl *UserControl) DeleteUser(ctx context.Context, req *proto.DeleteUserRequest,
+	rsp *proto.RequestResponse) error {
 	fmt.Println("delete user request")
-	_, ok := ctrl.Users[int32(req.Id)]
+	_, ok := ctrl.Users[req.Id]
 	if !ok {
 		rsp.Succeeded = false
 		rsp.Cause = "user id does not exist"
@@ -62,14 +64,15 @@ func (ctrl *UserControl) DeleteUser(ctx context.Context, req *proto.DeleteUserRe
 		rsp.Cause = "User has active reservations"
 		return nil
 	}
-	delete(ctrl.Users, int32(req.Id))
+	delete(ctrl.Users, req.Id)
 	rsp.Succeeded = true
 	fmt.Println("deleted user")
 	return nil
 }
 
-func (ctrl *UserControl) CheckUserReservation(ctx context.Context, req *proto.CheckUserReservationRequest, rsp *proto.RequestResponse) error {
-	user, ok := ctrl.Users[int32(req.Id)]
+func (ctrl *UserControl) CheckUserReservation(ctx context.Context, req *proto.CheckUserReservationRequest,
+	rsp *proto.RequestResponse) error {
+	user, ok := ctrl.Users[req.Id]
 	if !ok {
 		rsp.Succeeded = false
 		rsp.Cause = "user id could not been look up"
