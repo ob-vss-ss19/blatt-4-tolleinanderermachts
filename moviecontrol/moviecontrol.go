@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 
+	"github.com/micro/go-micro"
 	proto "github.com/ob-vss-ss19/blatt-4-tolleinanderermachts/proto"
 )
 
@@ -11,8 +12,9 @@ type Movie struct {
 }
 
 type MovieControl struct {
-	NextID int
-	Movies map[int]Movie
+	NextID  int
+	Movies  map[int]Movie
+	Service micro.Service
 }
 
 func (ctrl *MovieControl) AddMovie(ctx context.Context, req *proto.AddMovieRequest, rsp *proto.RequestResponse) error {
@@ -43,6 +45,9 @@ func (ctrl *MovieControl) DeleteMovie(ctx context.Context, req *proto.DeleteMovi
 		return nil
 	}
 	delete(ctrl.Movies, int(req.Id))
+	if ctrl.Service != nil {
+		go ctrl.notifyMovieDelete(&proto.MovieData{Id: req.Id})
+	}
 	rsp.Succeeded = true
 	println("deleted movie")
 	return nil
@@ -58,4 +63,9 @@ func (ctrl *MovieControl) GetMovie(ctx context.Context, req *proto.GetMovieReque
 	rsp.Data = data
 	println("returned every movie data")
 	return nil
+}
+
+func (ctrl *MovieControl) notifyMovieDelete(data *proto.MovieData) {
+	caller := proto.NewShowControlService("showctrl", ctrl.Service.Client())
+	_, _ = caller.NotifyMovieDelete(context.TODO(), data)
 }

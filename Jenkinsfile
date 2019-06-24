@@ -16,9 +16,9 @@ pipeline {
                 docker { image 'obraun/vss-protoactor-jenkins' }
             }
             steps {
-                sh 'cd moviecontrol && go test -cover'
-                sh 'cd roomcontrol && go test -cover'
-                sh 'cd showcontrol && go test -cover'
+                sh 'cd moviecontrol && go test -cover moviecontrol.go moviecontrol_test.go'
+                sh 'cd roomcontrol && go test -cover roomcontrol.go roomcontrol_test.go'
+                sh 'cd showcontrol && go test -cover showcontrol.go showcontrol_test.go'
             }
         }
         stage('Lint') {

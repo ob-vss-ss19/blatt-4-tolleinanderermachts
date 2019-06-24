@@ -110,3 +110,31 @@ func TestShowCheckSeatEmptyShow(t *testing.T) {
 	assert.False(t, response.Succeeded)
 	assert.Equal(t, "Show not found", response.Cause)
 }
+
+func TestShowNotifyMovieDelete(t *testing.T) {
+
+	ShowControl := ShowControl{NextID: 0, Shows: make(map[int]Show)}
+
+	response := proto.RequestResponse{}
+
+	_ = ShowControl.AddShow(context.TODO(), &proto.AddShowRequest{MovieId: 0, RoomId: 0}, &response)
+
+	assert.True(t, response.Succeeded, response.Cause)
+
+	_ = ShowControl.NotifyMovieDelete(context.TODO(), &proto.MovieData{Id: 0}, &response)
+	assert.True(t, response.Succeeded, response.Cause)
+}
+
+func TestShowNotifyRoomDelete(t *testing.T) {
+
+	ShowControl := ShowControl{NextID: 0, Shows: make(map[int]Show)}
+
+	response := proto.RequestResponse{}
+
+	_ = ShowControl.AddShow(context.TODO(), &proto.AddShowRequest{MovieId: 0, RoomId: 0}, &response)
+
+	assert.True(t, response.Succeeded, response.Cause)
+
+	_ = ShowControl.NotifyRoomDelete(context.TODO(), &proto.RoomData{Id: 0}, &response)
+	assert.True(t, response.Succeeded, response.Cause)
+}

@@ -59,6 +59,7 @@ func (ctrl *ShowControl) DeleteShow(ctx context.Context,
 		return nil
 	}
 	delete(ctrl.Shows, int(req.Id))
+	go ctrl.notyfiyReservationcontrol([]int{int(req.Id)})
 	println("show deleted: " + string(req.Id))
 	return nil
 }
@@ -89,4 +90,42 @@ func (ctrl *ShowControl) CheckSeat(ctx context.Context,
 		rsp.Id = req.Id
 	}
 	return nil
+}
+
+func (ctrl *ShowControl) NotifyMovieDelete(ctx context.Context,
+	req *proto.MovieData, rsp *proto.RequestResponse) error {
+	println("got movie delete notification")
+	var delShows []int
+	for k, v := range ctrl.Shows {
+		if v.Movie == int(req.Id) {
+			delShows = append(delShows, k)
+			delete(ctrl.Shows, k)
+		}
+	}
+
+	go ctrl.notyfiyReservationcontrol(delShows)
+
+	rsp.Succeeded = true
+	return nil
+}
+
+func (ctrl *ShowControl) NotifyRoomDelete(ctx context.Context,
+	req *proto.RoomData, rsp *proto.RequestResponse) error {
+	println("got room delete notification")
+	var delShows []int
+	for k, v := range ctrl.Shows {
+		if v.Room == int(req.Id) {
+			delShows = append(delShows, k)
+			delete(ctrl.Shows, k)
+		}
+	}
+
+	go ctrl.notyfiyReservationcontrol(delShows)
+
+	rsp.Succeeded = true
+	return nil
+}
+
+func (ctrl *ShowControl) notyfiyReservationcontrol(delShows []int) {
+	//TODO: notify reservationcontrol that shows with ids in array delShows are deleted
 }
