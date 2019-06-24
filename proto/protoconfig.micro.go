@@ -299,6 +299,8 @@ type ShowControlService interface {
 	AddShow(ctx context.Context, in *AddShowRequest, opts ...client.CallOption) (*RequestResponse, error)
 	DeleteShow(ctx context.Context, in *DeleteShowRequest, opts ...client.CallOption) (*RequestResponse, error)
 	CheckSeat(ctx context.Context, in *AvailableSeatRequest, opts ...client.CallOption) (*RequestResponse, error)
+	NotifyMovieDelete(ctx context.Context, in *MovieData, opts ...client.CallOption) (*RequestResponse, error)
+	NotifyRoomDelete(ctx context.Context, in *RoomData, opts ...client.CallOption) (*RequestResponse, error)
 }
 
 type showControlService struct {
@@ -349,12 +351,34 @@ func (c *showControlService) CheckSeat(ctx context.Context, in *AvailableSeatReq
 	return out, nil
 }
 
+func (c *showControlService) NotifyMovieDelete(ctx context.Context, in *MovieData, opts ...client.CallOption) (*RequestResponse, error) {
+	req := c.c.NewRequest(c.name, "ShowControl.NotifyMovieDelete", in)
+	out := new(RequestResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *showControlService) NotifyRoomDelete(ctx context.Context, in *RoomData, opts ...client.CallOption) (*RequestResponse, error) {
+	req := c.c.NewRequest(c.name, "ShowControl.NotifyRoomDelete", in)
+	out := new(RequestResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for ShowControl service
 
 type ShowControlHandler interface {
 	AddShow(context.Context, *AddShowRequest, *RequestResponse) error
 	DeleteShow(context.Context, *DeleteShowRequest, *RequestResponse) error
 	CheckSeat(context.Context, *AvailableSeatRequest, *RequestResponse) error
+	NotifyMovieDelete(context.Context, *MovieData, *RequestResponse) error
+	NotifyRoomDelete(context.Context, *RoomData, *RequestResponse) error
 }
 
 func RegisterShowControlHandler(s server.Server, hdlr ShowControlHandler, opts ...server.HandlerOption) error {
@@ -362,6 +386,8 @@ func RegisterShowControlHandler(s server.Server, hdlr ShowControlHandler, opts .
 		AddShow(ctx context.Context, in *AddShowRequest, out *RequestResponse) error
 		DeleteShow(ctx context.Context, in *DeleteShowRequest, out *RequestResponse) error
 		CheckSeat(ctx context.Context, in *AvailableSeatRequest, out *RequestResponse) error
+		NotifyMovieDelete(ctx context.Context, in *MovieData, out *RequestResponse) error
+		NotifyRoomDelete(ctx context.Context, in *RoomData, out *RequestResponse) error
 	}
 	type ShowControl struct {
 		showControl
@@ -384,4 +410,12 @@ func (h *showControlHandler) DeleteShow(ctx context.Context, in *DeleteShowReque
 
 func (h *showControlHandler) CheckSeat(ctx context.Context, in *AvailableSeatRequest, out *RequestResponse) error {
 	return h.ShowControlHandler.CheckSeat(ctx, in, out)
+}
+
+func (h *showControlHandler) NotifyMovieDelete(ctx context.Context, in *MovieData, out *RequestResponse) error {
+	return h.ShowControlHandler.NotifyMovieDelete(ctx, in, out)
+}
+
+func (h *showControlHandler) NotifyRoomDelete(ctx context.Context, in *RoomData, out *RequestResponse) error {
+	return h.ShowControlHandler.NotifyRoomDelete(ctx, in, out)
 }

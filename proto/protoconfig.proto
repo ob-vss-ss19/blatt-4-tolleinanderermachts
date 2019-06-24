@@ -93,6 +93,10 @@ service ShowControl {
     }
     rpc CheckSeat (AvailableSeatRequest) returns (RequestResponse) {
     }
+    rpc NotifyMovieDelete(MovieData) returns (RequestResponse) {
+    }
+    rpc NotifyRoomDelete(RoomData) returns (RequestResponse) {
+    }
 }
 
 message AddShowRequest {
