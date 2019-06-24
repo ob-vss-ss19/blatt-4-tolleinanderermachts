@@ -5,5 +5,5 @@ RUN go build -o showcontrol/main showcontrol/main.go showcontrol/showcontrol.go
 
 FROM iron/go
 COPY --from=builder /app/showcontrol/main /app/showcontrol
-EXPOSE 50000-70000
+EXPOSE 52000-65000
 ENTRYPOINT ["/app/showcontrol"]

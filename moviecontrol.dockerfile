@@ -5,5 +5,5 @@ RUN go build -o moviecontrol/main moviecontrol/main.go moviecontrol/moviecontrol
 
 FROM iron/go
 COPY --from=builder /app/moviecontrol/main /app/moviecontrol
-EXPOSE 50000-70000
+EXPOSE 52000-65000
 ENTRYPOINT ["/app/moviecontrol"]
