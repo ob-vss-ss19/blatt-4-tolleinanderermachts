@@ -11,7 +11,7 @@ import (
 type ReservationControl struct {
 	NextID       int32
 	Reservations map[int32]protoconfig.Reservation
-	Service micro.Service
+	Service      micro.Service
 }
 
 func (ctrl *ReservationControl) AddReservation(ctx context.Context, req *protoconfig.AddReservationRequest, rsp *protoconfig.RequestResponse) error {
@@ -23,11 +23,11 @@ func (ctrl *ReservationControl) AddReservation(ctx context.Context, req *protoco
 	}
 	caller := protoconfig.NewShowControlService("showctrl", ctrl.Service.Client())
 	for _, v := range req.Seats {
-		showData, _ := caller.CheckSeat(context.TODO(), &protoconfig.AvailableSeatRequest{Id:req.ShowId, Row:v.Row, Seat:v.Column})
+		showData, _ := caller.CheckSeat(context.TODO(), &protoconfig.AvailableSeatRequest{Id: req.ShowId, Row: v.Row, Seat: v.Column})
 		b := showData.Succeeded
 		if !b {
 			rsp.Succeeded = false
-			rsp.Cause = "Seat is already reservated: row = " + string(v.Row) + ", col = " + string(v.Column);
+			rsp.Cause = "Seat is already reservated: row = " + string(v.Row) + ", col = " + string(v.Column)
 			return nil
 		}
 	}
@@ -68,7 +68,7 @@ func (ctrl *ReservationControl) GetReservationsForUser(ctx context.Context, req 
 	return nil
 }
 func (ctrl *ReservationControl) RemoveReservation(ctx context.Context, req *protoconfig.RemoveReservationRequest, rsp *protoconfig.RequestResponse) error {
-	fmt.Println("remove reservation")
+	fmt.Printf("remove reservation: %d\n", req.Id)
 	_, found := ctrl.Reservations[req.Id]
 	if !found {
 		rsp.Succeeded = false
@@ -77,5 +77,6 @@ func (ctrl *ReservationControl) RemoveReservation(ctx context.Context, req *prot
 	}
 	delete(ctrl.Reservations, req.Id)
 	rsp.Succeeded = true
+	fmt.Printf("removed reservation: %d\n", req.Id)
 	return nil
 }

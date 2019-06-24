@@ -25,12 +25,11 @@ func TestDeleteUser(t *testing.T) {
 
 	response := proto.RequestResponse{}
 
-	_ = UserControl.DeleteUser(context.TODO(), &proto.DeleteUserRequest{Id:3}, &response)
+	_ = UserControl.DeleteUser(context.TODO(), &proto.DeleteUserRequest{Id: 3}, &response)
 
 	assert.False(t, response.Succeeded)
 	assert.Equal(t, "user id does not exist", response.Cause)
 }
-
 
 func TestUserCheckUserReservationEmptyReservations(t *testing.T) {
 
@@ -79,5 +78,5 @@ func TestUserAddReservation(t *testing.T) {
 
 	response := proto.RequestResponse{}
 
-	_ = UserControl.AddUserReservation(context.TODO(), &proto.AddUserReservationRequest{ReservationId:2, UserId:3}, &response)
+	_ = UserControl.AddUserReservation(context.TODO(), &proto.AddUserReservationRequest{ReservationId: 2, UserId: 3}, &response)
 }

@@ -14,8 +14,8 @@ type User struct {
 }
 
 type UserControl struct {
-	NextID int32
-	Users  map[int32]User
+	NextID  int32
+	Users   map[int32]User
 	Service micro.Service
 }
 
@@ -56,7 +56,7 @@ func (ctrl *UserControl) DeleteUser(ctx context.Context, req *proto.DeleteUserRe
 	}
 
 	caller := proto.NewReservationControlService("resctrl", ctrl.Service.Client())
-	showData, _ := caller.GetReservationsForUser(context.TODO(), &proto.GetReservationsForUserRequest{UserId:req.Id})
+	showData, _ := caller.GetReservationsForUser(context.TODO(), &proto.GetReservationsForUserRequest{UserId: req.Id})
 	if len(showData.Reservations) != 0 {
 		rsp.Succeeded = false
 		rsp.Cause = "User has active reservations"

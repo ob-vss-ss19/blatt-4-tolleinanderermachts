@@ -69,12 +69,12 @@ func (ctrl *ShowControl) CheckSeat(ctx context.Context,
 	show, ok := ctrl.Shows[int(req.Id)]
 	println("checking seats")
 	if !ok {
-		fmt.Printf("show not found: %d", req.Id)
+		fmt.Printf("show not found: %d\n", req.Id)
 		rsp.Succeeded = false
 		rsp.Cause = "Show not found"
 	} else {
 		if !req.Write {
-			fmt.Printf("checking seat %d:%d with: %t", req.Row, req.Seat, show.Seats[req.Row][req.Seat])
+			fmt.Printf("checking seat %d:%d with: %t\n", req.Row, req.Seat, show.Seats[req.Row][req.Seat])
 			if show.Seats[req.Row][req.Seat] {
 				rsp.Succeeded = false
 				rsp.Cause = "seat occupied"
@@ -83,7 +83,7 @@ func (ctrl *ShowControl) CheckSeat(ctx context.Context,
 			}
 
 		} else {
-			fmt.Printf("writing seat %d:%d with: %t", req.Row, req.Seat, req.Value)
+			fmt.Printf("writing seat %d:%d with: %t\n", req.Row, req.Seat, req.Value)
 			show.Seats[req.Row][req.Seat] = req.Value
 			rsp.Succeeded = true
 		}
@@ -127,5 +127,8 @@ func (ctrl *ShowControl) NotifyRoomDelete(ctx context.Context,
 }
 
 func (ctrl *ShowControl) notyfiyReservationcontrol(delShows []int) {
-	//TODO: notify reservationcontrol that shows with ids in array delShows are deleted
+	caller := proto.NewReservationControlService("resctrl", ctrl.Service.Client())
+	for _, v := range delShows {
+		_, _ = caller.RemoveReservation(context.TODO(), &proto.RemoveReservationRequest{Id: int32(v)})
+	}
 }
