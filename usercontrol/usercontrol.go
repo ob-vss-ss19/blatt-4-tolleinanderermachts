@@ -41,7 +41,7 @@ func (ctrl *UserControl) AddUserReservation(ctx context.Context, req *proto.AddU
 	user.Reservations = append(user.Reservations, req.ReservationId)
 	ctrl.Users[int32(req.UserId)] = user
 	rsp.Succeeded = true
-	fmt.Println("added reservation: " + string(req.ReservationId) + " to " + string(req.UserId))
+	fmt.Printf("added reservation: %d to %d\n", req.ReservationId, req.UserId)
 	return nil
 }
 
@@ -51,7 +51,7 @@ func (ctrl *UserControl) DeleteUser(ctx context.Context, req *proto.DeleteUserRe
 	if !ok {
 		rsp.Succeeded = false
 		rsp.Cause = "user id does not exist"
-		fmt.Println("user does not exist: " + string(req.Id))
+		fmt.Printf("user does not exist: %d\n", req.Id)
 		return nil
 	}
 
@@ -73,14 +73,14 @@ func (ctrl *UserControl) CheckUserReservation(ctx context.Context, req *proto.Ch
 	if !ok {
 		rsp.Succeeded = false
 		rsp.Cause = "user id could not been look up"
-		fmt.Println("user id does not exist: " + string(req.Id))
+		fmt.Printf("user id does not exist: %d\n", req.Id)
 		return nil
 	}
 	reservations := len(user.Reservations)
 	if reservations > 0 {
 		rsp.Succeeded = false
 		rsp.Cause = "user has reservations and cannot be deleted"
-		fmt.Println("user has that many reservations: " + string(reservations))
+		fmt.Printf("user has that many reservations: %d\n", reservations)
 		return nil
 	}
 	rsp.Succeeded = true

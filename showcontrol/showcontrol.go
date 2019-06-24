@@ -60,7 +60,7 @@ func (ctrl *ShowControl) DeleteShow(ctx context.Context,
 	}
 	delete(ctrl.Shows, int(req.Id))
 	go ctrl.notyfiyReservationcontrol([]int{int(req.Id)})
-	println("show deleted: " + string(req.Id))
+	fmt.Printf("show deleted: %d\n", req.Id)
 	return nil
 }
 

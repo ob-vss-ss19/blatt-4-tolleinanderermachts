@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/micro/go-micro"
 	proto "github.com/ob-vss-ss19/blatt-4-tolleinanderermachts/proto"
@@ -49,7 +50,7 @@ func (ctrl *RoomControl) DeleteRoom(ctx context.Context, req *proto.DeleteRoomRe
 		go ctrl.notifyRoomDelete(&proto.RoomData{Id: req.Id})
 	}
 	rsp.Succeeded = true
-	println("deleted room: " + string(req.Id))
+	fmt.Printf("deleted room: %d\n", req.Id)
 	return nil
 }
 
@@ -78,7 +79,7 @@ func (ctrl *RoomControl) GetSingleRoom(ctx context.Context,
 	} else {
 		rsp.Id = -1
 	}
-	println("returned specific room data: " + string(req.Id))
+	fmt.Printf("returned specific room data: %d\n", req.Id)
 	return nil
 }
 

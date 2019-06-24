@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/micro/go-micro"
 	proto "github.com/ob-vss-ss19/blatt-4-tolleinanderermachts/proto"
@@ -41,7 +42,7 @@ func (ctrl *MovieControl) DeleteMovie(ctx context.Context, req *proto.DeleteMovi
 	if !ok {
 		rsp.Succeeded = false
 		rsp.Cause = "key does not exist"
-		println("movie does not exist exists: " + string(req.Id))
+		fmt.Printf("movie does not exist exists: %d\n", req.Id)
 		return nil
 	}
 	delete(ctrl.Movies, int(req.Id))
