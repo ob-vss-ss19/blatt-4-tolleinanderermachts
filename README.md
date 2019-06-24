@@ -9,7 +9,7 @@ Contributors:
  
 How to run the services:
 ---
-#####Download docker images:
+##### Download docker images:
 ````
 terraform.cs.hm.edu:5043/ob-vss-ss19-blatt-4-tolleinanderermachts:feature-docker-moviecontrol
 ````
@@ -23,16 +23,16 @@ TODO: reservationcontrol
 
 TODO: usercontrol 
 
-#####Alternative: Run the 5 services in the 5 "*control" subfolders.
+##### Alternative: Run the 5 services in the 5 "*control" subfolders.
 
 ---
 
-#####Fill Client with Dummy Data:
+##### Fill Client with Dummy Data:
 
 TODO
 
 
-#####Please Note:
+##### Please Note:
 Due to the services communicating, the port range from 52.000 to 53.000 is exposed on the docker images.
 ````
 2019/06/24 12:37:19 Transport [http] Listening on [::]:52682
