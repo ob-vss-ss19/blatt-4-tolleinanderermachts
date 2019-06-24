@@ -110,7 +110,8 @@ func (ctrl *ReservationControl) notifyShowReservationDelete(res proto.Reservatio
 	if ctrl.Service != nil {
 		caller := proto.NewShowControlService("showctrl", ctrl.Service.Client())
 		for _, v := range res.Seats {
-			_, _ = caller.CheckSeat(context.TODO(), &proto.AvailableSeatRequest{Id: res.ShowId, Row: v.Row, Seat: v.Column, Write: true, Value: false})
+			_, _ = caller.CheckSeat(context.TODO(),
+				&proto.AvailableSeatRequest{Id: res.ShowId, Row: v.Row, Seat: v.Column, Write: true, Value: false})
 		}
 	}
 }

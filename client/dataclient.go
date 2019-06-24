@@ -93,41 +93,17 @@ func main() {
 
 func createMovies(service micro.Service) proto.MovieControlService {
 	movieClient := proto.NewMovieControlService("moviectrl", service.Client())
-	rsp, err := movieClient.AddMovie(context.TODO(), &proto.AddMovieRequest{Title: "Movie 1"})
-	if err != nil {
-		fmt.Println(err)
-	}
-	if rsp.Succeeded {
-		fmt.Println("Adding first Movie succeeded")
-	} else {
-		fmt.Println("Adding first Movie FAILED, cause: " + rsp.Cause)
-	}
-	rsp, err = movieClient.AddMovie(context.TODO(), &proto.AddMovieRequest{Title: "Movie 2"})
-	if err != nil {
-		fmt.Println(err)
-	}
-	if rsp.Succeeded {
-		fmt.Println("Adding second Movie succeeded")
-	} else {
-		fmt.Println("Adding second Movie FAILED, cause: " + rsp.Cause)
-	}
-	rsp, err = movieClient.AddMovie(context.TODO(), &proto.AddMovieRequest{Title: "Movie 3"})
-	if err != nil {
-		fmt.Println(err)
-	}
-	if rsp.Succeeded {
-		fmt.Println("Adding third Movie succeeded")
-	} else {
-		fmt.Println("Adding third Movie FAILED, cause: " + rsp.Cause)
-	}
-	rsp, err = movieClient.AddMovie(context.TODO(), &proto.AddMovieRequest{Title: "Movie 4"})
-	if err != nil {
-		fmt.Println(err)
-	}
-	if rsp.Succeeded {
-		fmt.Println("Adding fourth Movie succeeded")
-	} else {
-		fmt.Println("Adding fourth Movie FAILED, cause: " + rsp.Cause)
+
+	for i := 1; i <= 4; i++ {
+		rsp, err := movieClient.AddMovie(context.TODO(), &proto.AddMovieRequest{Title: "Movie " + string(i)})
+		if err != nil {
+			fmt.Println(err)
+		}
+		if rsp.Succeeded {
+			fmt.Printf("Adding %d Movie succeeded\n", i)
+		} else {
+			fmt.Printf("Adding %d Movie FAILED, cause: "+rsp.Cause+"\n", i)
+		}
 	}
 	return movieClient
 }
