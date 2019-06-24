@@ -123,6 +123,8 @@ service UserControl {
     }
     rpc CheckUserReservation (CheckUserReservationRequest) returns (RequestResponse) {
     }
+    rpc AddUserReservation (AddUserReservationRequest) returns (RequestResponse) {
+    }
 }
 
 message AddUserRequest {
@@ -131,6 +133,11 @@ message AddUserRequest {
 
 message DeleteUserRequest {
     int32 id = 1;
+}
+
+message AddUserReservationRequest {
+    int32 userId = 1;
+    int32 reservationId = 2;
 }
 
 message CheckUserReservationRequest {
@@ -190,6 +197,5 @@ message GetReservationsForUserResponse {
 }
 
 message RemoveReservationRequest {
-    int32 showId = 1;
-    int32 userId = 2;
+    int32 Id = 1;
 }

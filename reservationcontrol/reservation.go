@@ -51,25 +51,31 @@ func (ctrl *ReservationControl) ActivateReservation(ctx context.Context, req *pr
 	reservation := ctrl.Reservations[req.ReservationId]
 	reservation.Active = true
 	ctrl.Reservations[req.ReservationId] = reservation
+	rsp.Reservation = &reservation
 	return nil
 }
 
 func (ctrl *ReservationControl) GetReservationsForUser(ctx context.Context, req *protoconfig.GetReservationsForUserRequest, rsp *protoconfig.GetReservationsForUserResponse) error {
 	fmt.Println("get reservations for user")
-
+	var reservations []*protoconfig.Reservation
+	for _, res := range ctrl.Reservations {
+		res := res
+		if req.UserId == res.UserId {
+			reservations = append(reservations, &res)
+		}
+	}
+	rsp.Reservations = reservations
+	return nil
 }
 func (ctrl *ReservationControl) RemoveReservation(ctx context.Context, req *protoconfig.RemoveReservationRequest, rsp *protoconfig.RequestResponse) error {
-
+	fmt.Println("remove reservation")
+	_, found := ctrl.Reservations[req.Id]
+	if !found {
+		rsp.Succeeded = false
+		rsp.Cause = "did not find given reservation id"
+		return nil
+	}
+	delete(ctrl.Reservations, req.Id)
+	rsp.Succeeded = true
+	return nil
 }
-
-/*
-type entry struct {
-	Row  int
-	Seat int
-}
-type Reservation struct {
-	User    int
-	Show    int
-	entries []entry
-}
-*/

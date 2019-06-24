@@ -9,7 +9,7 @@ import (
 
 func main() {
 	service := micro.NewService(
-		micro.Name("roomctrl"))
+		micro.Name("resctrl"))
 	service.Init()
 	err := proto.RegisterReservationControlHandler(service.Server(), &ReservationControl{NextID: 0, Reservations: make(map[int32]proto.Reservation), Service: service})
 
