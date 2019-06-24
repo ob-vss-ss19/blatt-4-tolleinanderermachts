@@ -33,6 +33,8 @@ pipeline {
             agent any
             steps {
                 sh "docker-build-and-push -b ${BRANCH_NAME} -s moviecontrol -f moviecontrol.dockerfile"
+                sh "docker-build-and-push -b ${BRANCH_NAME} -s roomcontrol -f roomcontrol.dockerfile"
+                sh "docker-build-and-push -b ${BRANCH_NAME} -s showcontrol -f showcontrol.dockerfile"
             }
         }
     }
