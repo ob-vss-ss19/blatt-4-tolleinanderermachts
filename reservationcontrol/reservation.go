@@ -2,15 +2,16 @@ package main
 
 import (
 	"context"
-	"errors"
 	"fmt"
+
+	"github.com/micro/go-micro"
 	"github.com/ob-vss-ss19/blatt-4-tolleinanderermachts/proto"
-	"hash"
 )
 
 type ReservationControl struct {
 	NextID       int32
 	Reservations map[int32]protoconfig.Reservation
+	Service micro.Service
 }
 
 func (ctrl *ReservationControl) AddReservation(ctx context.Context, req *protoconfig.AddReservationRequest, rsp *protoconfig.RequestResponse) error {
@@ -20,7 +21,16 @@ func (ctrl *ReservationControl) AddReservation(ctx context.Context, req *protoco
 		rsp.Cause = "U have to select seats for a reservation"
 		return nil
 	}
-	// todo check seat validity or are they free?
+	caller := protoconfig.NewShowControlService("showctrl", ctrl.Service.Client())
+	for _, v := range req.Seats {
+		showData, _ := caller.CheckSeat(context.TODO(), &protoconfig.AvailableSeatRequest{Id:req.ShowId, Row:v.Row, Seat:v.Column})
+		b := showData.Succeeded
+		if !b {
+			rsp.Succeeded = false
+			rsp.Cause = "Seat is already reservated: row = " + string(v.Row) + ", col = " + string(v.Column);
+			return nil
+		}
+	}
 
 	ctrl.Reservations[ctrl.NextID] = protoconfig.Reservation{Id: ctrl.NextID, ShowId: req.ShowId, Seats: req.Seats, UserId: req.UserId, Active: false}
 	rsp.Succeeded = true
