@@ -141,3 +141,40 @@ func TestRoomDeleteNotFound(t *testing.T) {
 	assert.False(t, response.Succeeded)
 	assert.Equal(t, "key does not exist", response.Cause)
 }
+
+func TestGetSingleRoom(t *testing.T) {
+
+	roomControl := RoomControl{NextID: 0, Rooms: make(map[int]CinemaRoom)}
+
+	response := proto.RequestResponse{}
+
+	_ = roomControl.AddRoom(context.TODO(),
+		&proto.AddRoomRequest{Name: "The Room of No Return", Rows: 2, SeatsPerRow: 5}, &response)
+
+	assert.True(t, response.Succeeded, response.Cause)
+
+	data := proto.RoomData{}
+	_ = roomControl.GetSingleRoom(context.TODO(), &proto.GetSingleRoomRequest{Id: 0}, &data)
+
+	assert.Equal(t, data.Id, int32(0))
+	assert.Equal(t, data.Name, "The Room of No Return")
+	assert.Equal(t, data.Rows, int32(2))
+	assert.Equal(t, data.SeatsPerRow, int32(5))
+}
+
+func TestGetSingleWrongRoom(t *testing.T) {
+
+	roomControl := RoomControl{NextID: 0, Rooms: make(map[int]CinemaRoom)}
+
+	response := proto.RequestResponse{}
+
+	_ = roomControl.AddRoom(context.TODO(),
+		&proto.AddRoomRequest{Name: "The Room of No Return", Rows: 2, SeatsPerRow: 5}, &response)
+
+	assert.True(t, response.Succeeded, response.Cause)
+
+	data := proto.RoomData{}
+	_ = roomControl.GetSingleRoom(context.TODO(), &proto.GetSingleRoomRequest{Id: 1}, &data)
+
+	assert.Equal(t, data.Id, int32(-1))
+}

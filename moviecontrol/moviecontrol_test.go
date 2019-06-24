@@ -84,7 +84,8 @@ func TestMovieDeleteWithSavedCheck(t *testing.T) {
 	_ = movieControl.GetMovie(context.TODO(), &proto.GetMovieRequest{}, &movieResponse)
 
 	assert.EqualValues(t, 1, len(movieResponse.Data), "Movie number should be 1!")
-	assert.Equal(t, "TestMovieDeleteWithSavedCheck", movieResponse.Data[0].Title, "movie title mismatch!")
+	assert.Equal(t, "TestMovieDeleteWithSavedCheck",
+		movieResponse.Data[0].Title, "movie title mismatch!")
 	assert.EqualValues(t, 0, movieResponse.Data[0].Id, "id mismatch")
 
 	_ = movieControl.DeleteMovie(context.TODO(), &proto.DeleteMovieRequest{Id: 0}, &response)
