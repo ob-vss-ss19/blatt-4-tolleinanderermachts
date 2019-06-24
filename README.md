@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/ob-vss-ss19/blatt-4-tolleinanderermachts.svg?branch=develop)](https://travis-ci.com/ob-vss-ss19/blatt-4-tolleinanderermachts)
+
 Contributors:
 ---
 * Marcel Reineck
