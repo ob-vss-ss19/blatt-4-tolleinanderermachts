@@ -127,8 +127,10 @@ func (ctrl *ShowControl) NotifyRoomDelete(ctx context.Context,
 }
 
 func (ctrl *ShowControl) notyfiyReservationcontrol(delShows []int) {
-	caller := proto.NewReservationControlService("resctrl", ctrl.Service.Client())
-	for _, v := range delShows {
-		_, _ = caller.RemoveReservation(context.TODO(), &proto.RemoveReservationRequest{ReserId: int32(v)})
+	if ctrl.Service != nil {
+		caller := proto.NewReservationControlService("resctrl", ctrl.Service.Client())
+		for _, v := range delShows {
+			_, _ = caller.RemoveReservation(context.TODO(), &proto.RemoveReservationRequest{ReserId: int32(v)})
+		}
 	}
 }

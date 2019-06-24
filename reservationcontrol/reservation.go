@@ -99,8 +99,19 @@ func (ctrl *ReservationControl) RemoveReservation(ctx context.Context,
 		rsp.Succeeded = false
 		return nil
 	}
+	go ctrl.notifyShowReservationDelete(ctrl.Reservations[req.ReserId])
 	delete(ctrl.Reservations, req.ReserId)
 	rsp.Succeeded = true
 	fmt.Printf("removed reservation: %d\n", req.ReserId)
 	return nil
+}
+
+func (ctrl *ReservationControl) notifyShowReservationDelete(res proto.Reservation) {
+	if ctrl.Service != nil {
+		caller := proto.NewShowControlService("showctrl", ctrl.Service.Client())
+		for _, v := range res.Seats {
+			_, _ = caller.CheckSeat(context.TODO(),
+				&proto.AvailableSeatRequest{Id: res.ShowId, Row: v.Row, Seat: v.Column, Write: true, Value: false})
+		}
+	}
 }
