@@ -53,9 +53,11 @@ Apart from that the other objects require certain conditions to be created:
          
     2) Activate the reservation
        ```
+	   response := proto.RequestResponse{}
 	   err := ReservationControl.ActivateReservation(context.TODO(), &proto.ActivateReservationRequest{ReservationId: 0, UserId: 0}, &response)
        ```
        When activating the reservation the show service's function '*CheckSeat(...)*' has to be called again but with ceartain write bits set to finally occupy the seats.
+	   The response returns the reservation itself.
     
 #### Object deletion:
  
@@ -69,8 +71,8 @@ Here is a table to show which service notifies which other service:
 |:--------------------------------------------:|:--------------------------------:|:------------------:|:------------------------------:|
 | DeleteMovie (DeleteMovieRequest)             | Moviecontrol       | Showcontrol        | NotifyMovieDelete (MovieData)                |
 | DeleteRoom (DeleteRoomRequest)               | Roomcontrol        | Showcontrol        | NotifyRoomDelete (RoomData)                  |
-| DeleteShow (DeleteShowRequest)               | Showcontrol        | Reservationcontrol |                                              |
-| RemoveReservation (RemoveReservationRequest) | Reservationcontrol |  Usercontrol       |                                              |
-| RemoveReservation (RemoveReservationRequest) | Reservationcontrol |  Showcontrol       | CheckSeat (AvailableSeatRequest)             |
+| DeleteShow (DeleteShowRequest)               | Showcontrol        | Reservationcontrol | RemoveReservation(RemoveReservationRequest)  |
+| RemoveReservation (RemoveReservationRequest) | Reservationcontrol | Usercontrol        | DeleteUserReservation(DeleteUserReservationRequest) |
+| RemoveReservation (RemoveReservationRequest) | Reservationcontrol | Showcontrol        | CheckSeat (AvailableSeatRequest)             |
 | DeleteUser (DeleteUserRequest)               | Usercontrol        | Reservationcontrol | RemoveReservation (RemoveReservationRequest) |
 
