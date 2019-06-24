@@ -97,7 +97,7 @@ func (ctrl *ShowControl) NotifyMovieDelete(ctx context.Context,
 	var delShows []int
 	for k, v := range ctrl.Shows {
 		if v.Movie == int(req.Id) {
-			delShows = append(delShows, int(k))
+			delShows = append(delShows, k)
 			delete(ctrl.Shows, k)
 		}
 	}
@@ -114,7 +114,7 @@ func (ctrl *ShowControl) NotifyRoomDelete(ctx context.Context,
 	var delShows []int
 	for k, v := range ctrl.Shows {
 		if v.Room == int(req.Id) {
-			delShows = append(delShows, int(k))
+			delShows = append(delShows, k)
 			delete(ctrl.Shows, k)
 		}
 	}
