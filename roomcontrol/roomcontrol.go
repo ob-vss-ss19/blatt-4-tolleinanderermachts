@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 
+	"github.com/micro/go-micro"
 	proto "github.com/ob-vss-ss19/blatt-4-tolleinanderermachts/proto"
 )
 
@@ -13,8 +14,9 @@ type CinemaRoom struct {
 }
 
 type RoomControl struct {
-	NextID int
-	Rooms  map[int]CinemaRoom
+	NextID  int
+	Rooms   map[int]CinemaRoom
+	Service micro.Service
 }
 
 func (ctrl *RoomControl) AddRoom(ctx context.Context, req *proto.AddRoomRequest, rsp *proto.RequestResponse) error {
@@ -43,6 +45,9 @@ func (ctrl *RoomControl) DeleteRoom(ctx context.Context, req *proto.DeleteRoomRe
 		return nil
 	}
 	delete(ctrl.Rooms, int(req.Id))
+	if ctrl.Service != nil {
+		go ctrl.notifyRoomDelete(&proto.RoomData{Id: req.Id})
+	}
 	rsp.Succeeded = true
 	println("deleted room: " + string(req.Id))
 	return nil
@@ -75,4 +80,9 @@ func (ctrl *RoomControl) GetSingleRoom(ctx context.Context,
 	}
 	println("returned specific room data: " + string(req.Id))
 	return nil
+}
+
+func (ctrl *RoomControl) notifyRoomDelete(data *proto.RoomData) {
+	caller := proto.NewShowControlService("showctrl", ctrl.Service.Client())
+	_, _ = caller.NotifyRoomDelete(context.TODO(), data)
 }
