@@ -52,6 +52,16 @@ func (ctrl *ReservationControl) ActivateReservation(ctx context.Context,
 	if reser.UserId != req.UserId {
 		return fmt.Errorf("the userId does not match the reservations one")
 	}
+	callerShow := proto.NewShowControlService("showctrl", ctrl.Service.Client())
+	for _, v := range reser.Seats {
+		showData, _ := callerShow.CheckSeat(context.TODO(),
+			&proto.AvailableSeatRequest{Id: reser.ShowId, Row: v.Row, Seat: v.Column, Value: true, Write: true})
+		b := showData.Succeeded
+		if !b {
+			fmt.Printf("Seat is already reservated: row = %d, col = %d\n", v.Row, v.Column)
+			return nil
+		}
+	}
 	reservation := ctrl.Reservations[req.ReservationId]
 	reservation.Active = true
 	ctrl.Reservations[req.ReservationId] = reservation
@@ -74,15 +84,23 @@ func (ctrl *ReservationControl) GetReservationsForUser(ctx context.Context,
 }
 func (ctrl *ReservationControl) RemoveReservation(ctx context.Context,
 	req *proto.RemoveReservationRequest, rsp *proto.RequestResponse) error {
-	fmt.Printf("remove reservation: %d\n", req.Id)
-	_, found := ctrl.Reservations[req.Id]
+	fmt.Printf("remove reservation: %d\n", req.ReserId)
+	_, found := ctrl.Reservations[req.ReserId]
 	if !found {
 		rsp.Succeeded = false
 		rsp.Cause = "did not find given reservation id"
 		return nil
 	}
-	delete(ctrl.Reservations, req.Id)
+	callerUser := proto.NewUserControlService("userctrl", ctrl.Service.Client())
+	response, _ := callerUser.DeleteUserReservation(context.TODO(),
+		&proto.DeleteUserReservationRequest{UserId: req.UserId, ReservationId: req.ReserId})
+	if !response.Succeeded {
+		fmt.Printf("could not delete reservation from user")
+		rsp.Succeeded = false
+		return nil
+	}
+	delete(ctrl.Reservations, req.ReserId)
 	rsp.Succeeded = true
-	fmt.Printf("removed reservation: %d\n", req.Id)
+	fmt.Printf("removed reservation: %d\n", req.ReserId)
 	return nil
 }

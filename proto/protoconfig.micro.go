@@ -427,6 +427,7 @@ type UserControlService interface {
 	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...client.CallOption) (*RequestResponse, error)
 	CheckUserReservation(ctx context.Context, in *CheckUserReservationRequest, opts ...client.CallOption) (*RequestResponse, error)
 	AddUserReservation(ctx context.Context, in *AddUserReservationRequest, opts ...client.CallOption) (*RequestResponse, error)
+	DeleteUserReservation(ctx context.Context, in *DeleteUserReservationRequest, opts ...client.CallOption) (*RequestResponse, error)
 }
 
 type userControlService struct {
@@ -487,6 +488,16 @@ func (c *userControlService) AddUserReservation(ctx context.Context, in *AddUser
 	return out, nil
 }
 
+func (c *userControlService) DeleteUserReservation(ctx context.Context, in *DeleteUserReservationRequest, opts ...client.CallOption) (*RequestResponse, error) {
+	req := c.c.NewRequest(c.name, "UserControl.DeleteUserReservation", in)
+	out := new(RequestResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for UserControl service
 
 type UserControlHandler interface {
@@ -494,6 +505,7 @@ type UserControlHandler interface {
 	DeleteUser(context.Context, *DeleteUserRequest, *RequestResponse) error
 	CheckUserReservation(context.Context, *CheckUserReservationRequest, *RequestResponse) error
 	AddUserReservation(context.Context, *AddUserReservationRequest, *RequestResponse) error
+	DeleteUserReservation(context.Context, *DeleteUserReservationRequest, *RequestResponse) error
 }
 
 func RegisterUserControlHandler(s server.Server, hdlr UserControlHandler, opts ...server.HandlerOption) error {
@@ -502,6 +514,7 @@ func RegisterUserControlHandler(s server.Server, hdlr UserControlHandler, opts .
 		DeleteUser(ctx context.Context, in *DeleteUserRequest, out *RequestResponse) error
 		CheckUserReservation(ctx context.Context, in *CheckUserReservationRequest, out *RequestResponse) error
 		AddUserReservation(ctx context.Context, in *AddUserReservationRequest, out *RequestResponse) error
+		DeleteUserReservation(ctx context.Context, in *DeleteUserReservationRequest, out *RequestResponse) error
 	}
 	type UserControl struct {
 		userControl
@@ -528,6 +541,10 @@ func (h *userControlHandler) CheckUserReservation(ctx context.Context, in *Check
 
 func (h *userControlHandler) AddUserReservation(ctx context.Context, in *AddUserReservationRequest, out *RequestResponse) error {
 	return h.UserControlHandler.AddUserReservation(ctx, in, out)
+}
+
+func (h *userControlHandler) DeleteUserReservation(ctx context.Context, in *DeleteUserReservationRequest, out *RequestResponse) error {
+	return h.UserControlHandler.DeleteUserReservation(ctx, in, out)
 }
 
 // Client API for ReservationControl service

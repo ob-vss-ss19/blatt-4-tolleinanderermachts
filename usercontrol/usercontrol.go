@@ -72,6 +72,7 @@ func (ctrl *UserControl) DeleteUser(ctx context.Context, req *proto.DeleteUserRe
 
 func (ctrl *UserControl) CheckUserReservation(ctx context.Context, req *proto.CheckUserReservationRequest,
 	rsp *proto.RequestResponse) error {
+	fmt.Println("check user reservation request")
 	user, ok := ctrl.Users[req.Id]
 	if !ok {
 		rsp.Succeeded = false
@@ -89,4 +90,35 @@ func (ctrl *UserControl) CheckUserReservation(ctx context.Context, req *proto.Ch
 	rsp.Succeeded = true
 	fmt.Println("user has no reservations")
 	return nil
+}
+
+func (ctrl *UserControl) DeleteUserReservation(ctx context.Context, req *proto.DeleteUserReservationRequest,
+	rsp *proto.RequestResponse) error {
+	fmt.Println("delete user reservation request")
+	user, ok := ctrl.Users[req.UserId]
+	if !ok {
+		rsp.Succeeded = false
+		rsp.Cause = "user id is invalid"
+		fmt.Printf("user id does not exist: %d\n", req.UserId)
+		return nil
+	}
+	for k, v := range user.Reservations {
+		if v == req.ReservationId {
+			fmt.Printf("found reservation from user (%d) to delete\n", req.UserId)
+			result := remove(user.Reservations, k)
+			user.Reservations = result
+			ctrl.Users[req.UserId] = user
+			rsp.Succeeded = true
+			return nil
+		}
+	}
+	rsp.Succeeded = false
+	rsp.Cause = "did not found the given reservation inside the user profile"
+	return nil
+}
+
+func remove(s []int32, i int) []int32 {
+	s[i] = s[len(s)-1]
+	// We do not need to put s[i] at the end, as it will be discarded anyway
+	return s[:len(s)-1]
 }
