@@ -11,7 +11,7 @@ func main() {
 	service := micro.NewService(
 		micro.Name("roomctrl"))
 	service.Init()
-	err := proto.RegisterReservationControlHandler(service.Server(), &ReservationControl{NextID: 0, Reservations: make(map[int32]proto.Reservation)})
+	err := proto.RegisterReservationControlHandler(service.Server(), &ReservationControl{NextID: 0, Reservations: make(map[int32]proto.Reservation), Service: service})
 
 	if err != nil {
 		fmt.Println(err)
