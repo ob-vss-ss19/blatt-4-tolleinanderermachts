@@ -8,5 +8,7 @@ before_script:
 
 script:
     - go build ./...
-    - go test -cover ./...
+    - go test -cover ./moviecontrol/moviecontrol.go ./moviecontrol/moviecontrol_test.go
+    - go test -cover ./roomcontrol/roomcontrol.go ./roomcontrol/roomcontrol_test.go
+    - go test -cover ./showcontrol/showcontrol.go ./showcontrol/showcontrol_test.go
     - golangci-lint run --deadline 20m --enable-all
