@@ -32,7 +32,9 @@ pipeline {
         stage('Build Docker Image') {
             agent any
             steps {
-                sh 'echo skip docker'
+                sh "docker-build-and-push -b ${BRANCH_NAME} -s moviecontrol -f moviecontrol.dockerfile"
+                sh "docker-build-and-push -b ${BRANCH_NAME} -s roomcontrol -f roomcontrol.dockerfile"
+                sh "docker-build-and-push -b ${BRANCH_NAME} -s showcontrol -f showcontrol.dockerfile"
             }
         }
     }
