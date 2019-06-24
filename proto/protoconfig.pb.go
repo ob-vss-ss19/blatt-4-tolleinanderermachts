@@ -771,6 +771,648 @@ func (m *AvailableSeatRequest) GetValue() bool {
 	return false
 }
 
+type AddUserRequest struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AddUserRequest) Reset()         { *m = AddUserRequest{} }
+func (m *AddUserRequest) String() string { return proto.CompactTextString(m) }
+func (*AddUserRequest) ProtoMessage()    {}
+func (*AddUserRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_6ca36e7c14b0b8c5, []int{17}
+}
+
+func (m *AddUserRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AddUserRequest.Unmarshal(m, b)
+}
+func (m *AddUserRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AddUserRequest.Marshal(b, m, deterministic)
+}
+func (m *AddUserRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AddUserRequest.Merge(m, src)
+}
+func (m *AddUserRequest) XXX_Size() int {
+	return xxx_messageInfo_AddUserRequest.Size(m)
+}
+func (m *AddUserRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AddUserRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AddUserRequest proto.InternalMessageInfo
+
+func (m *AddUserRequest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+type DeleteUserRequest struct {
+	Id                   int32    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteUserRequest) Reset()         { *m = DeleteUserRequest{} }
+func (m *DeleteUserRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteUserRequest) ProtoMessage()    {}
+func (*DeleteUserRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_6ca36e7c14b0b8c5, []int{18}
+}
+
+func (m *DeleteUserRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteUserRequest.Unmarshal(m, b)
+}
+func (m *DeleteUserRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteUserRequest.Marshal(b, m, deterministic)
+}
+func (m *DeleteUserRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteUserRequest.Merge(m, src)
+}
+func (m *DeleteUserRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteUserRequest.Size(m)
+}
+func (m *DeleteUserRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteUserRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteUserRequest proto.InternalMessageInfo
+
+func (m *DeleteUserRequest) GetId() int32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type DeleteUserReservationRequest struct {
+	UserId               int32    `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
+	ReservationId        int32    `protobuf:"varint,2,opt,name=reservationId,proto3" json:"reservationId,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteUserReservationRequest) Reset()         { *m = DeleteUserReservationRequest{} }
+func (m *DeleteUserReservationRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteUserReservationRequest) ProtoMessage()    {}
+func (*DeleteUserReservationRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_6ca36e7c14b0b8c5, []int{19}
+}
+
+func (m *DeleteUserReservationRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteUserReservationRequest.Unmarshal(m, b)
+}
+func (m *DeleteUserReservationRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteUserReservationRequest.Marshal(b, m, deterministic)
+}
+func (m *DeleteUserReservationRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteUserReservationRequest.Merge(m, src)
+}
+func (m *DeleteUserReservationRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteUserReservationRequest.Size(m)
+}
+func (m *DeleteUserReservationRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteUserReservationRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteUserReservationRequest proto.InternalMessageInfo
+
+func (m *DeleteUserReservationRequest) GetUserId() int32 {
+	if m != nil {
+		return m.UserId
+	}
+	return 0
+}
+
+func (m *DeleteUserReservationRequest) GetReservationId() int32 {
+	if m != nil {
+		return m.ReservationId
+	}
+	return 0
+}
+
+type AddUserReservationRequest struct {
+	UserId               int32    `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
+	ReservationId        int32    `protobuf:"varint,2,opt,name=reservationId,proto3" json:"reservationId,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AddUserReservationRequest) Reset()         { *m = AddUserReservationRequest{} }
+func (m *AddUserReservationRequest) String() string { return proto.CompactTextString(m) }
+func (*AddUserReservationRequest) ProtoMessage()    {}
+func (*AddUserReservationRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_6ca36e7c14b0b8c5, []int{20}
+}
+
+func (m *AddUserReservationRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AddUserReservationRequest.Unmarshal(m, b)
+}
+func (m *AddUserReservationRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AddUserReservationRequest.Marshal(b, m, deterministic)
+}
+func (m *AddUserReservationRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AddUserReservationRequest.Merge(m, src)
+}
+func (m *AddUserReservationRequest) XXX_Size() int {
+	return xxx_messageInfo_AddUserReservationRequest.Size(m)
+}
+func (m *AddUserReservationRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AddUserReservationRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AddUserReservationRequest proto.InternalMessageInfo
+
+func (m *AddUserReservationRequest) GetUserId() int32 {
+	if m != nil {
+		return m.UserId
+	}
+	return 0
+}
+
+func (m *AddUserReservationRequest) GetReservationId() int32 {
+	if m != nil {
+		return m.ReservationId
+	}
+	return 0
+}
+
+type CheckUserReservationRequest struct {
+	Id                   int32    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CheckUserReservationRequest) Reset()         { *m = CheckUserReservationRequest{} }
+func (m *CheckUserReservationRequest) String() string { return proto.CompactTextString(m) }
+func (*CheckUserReservationRequest) ProtoMessage()    {}
+func (*CheckUserReservationRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_6ca36e7c14b0b8c5, []int{21}
+}
+
+func (m *CheckUserReservationRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CheckUserReservationRequest.Unmarshal(m, b)
+}
+func (m *CheckUserReservationRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CheckUserReservationRequest.Marshal(b, m, deterministic)
+}
+func (m *CheckUserReservationRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CheckUserReservationRequest.Merge(m, src)
+}
+func (m *CheckUserReservationRequest) XXX_Size() int {
+	return xxx_messageInfo_CheckUserReservationRequest.Size(m)
+}
+func (m *CheckUserReservationRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CheckUserReservationRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CheckUserReservationRequest proto.InternalMessageInfo
+
+func (m *CheckUserReservationRequest) GetId() int32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type UserData struct {
+	Id                   int32    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Title                string   `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UserData) Reset()         { *m = UserData{} }
+func (m *UserData) String() string { return proto.CompactTextString(m) }
+func (*UserData) ProtoMessage()    {}
+func (*UserData) Descriptor() ([]byte, []int) {
+	return fileDescriptor_6ca36e7c14b0b8c5, []int{22}
+}
+
+func (m *UserData) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UserData.Unmarshal(m, b)
+}
+func (m *UserData) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UserData.Marshal(b, m, deterministic)
+}
+func (m *UserData) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UserData.Merge(m, src)
+}
+func (m *UserData) XXX_Size() int {
+	return xxx_messageInfo_UserData.Size(m)
+}
+func (m *UserData) XXX_DiscardUnknown() {
+	xxx_messageInfo_UserData.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UserData proto.InternalMessageInfo
+
+func (m *UserData) GetId() int32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *UserData) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+type AddReservationRequest struct {
+	ShowId               int32    `protobuf:"varint,1,opt,name=showId,proto3" json:"showId,omitempty"`
+	Seats                []*Seat  `protobuf:"bytes,2,rep,name=seats,proto3" json:"seats,omitempty"`
+	UserId               int32    `protobuf:"varint,3,opt,name=userId,proto3" json:"userId,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AddReservationRequest) Reset()         { *m = AddReservationRequest{} }
+func (m *AddReservationRequest) String() string { return proto.CompactTextString(m) }
+func (*AddReservationRequest) ProtoMessage()    {}
+func (*AddReservationRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_6ca36e7c14b0b8c5, []int{23}
+}
+
+func (m *AddReservationRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AddReservationRequest.Unmarshal(m, b)
+}
+func (m *AddReservationRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AddReservationRequest.Marshal(b, m, deterministic)
+}
+func (m *AddReservationRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AddReservationRequest.Merge(m, src)
+}
+func (m *AddReservationRequest) XXX_Size() int {
+	return xxx_messageInfo_AddReservationRequest.Size(m)
+}
+func (m *AddReservationRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AddReservationRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AddReservationRequest proto.InternalMessageInfo
+
+func (m *AddReservationRequest) GetShowId() int32 {
+	if m != nil {
+		return m.ShowId
+	}
+	return 0
+}
+
+func (m *AddReservationRequest) GetSeats() []*Seat {
+	if m != nil {
+		return m.Seats
+	}
+	return nil
+}
+
+func (m *AddReservationRequest) GetUserId() int32 {
+	if m != nil {
+		return m.UserId
+	}
+	return 0
+}
+
+type ActivateReservationRequest struct {
+	ReservationId        int32    `protobuf:"varint,1,opt,name=reservationId,proto3" json:"reservationId,omitempty"`
+	UserId               int32    `protobuf:"varint,2,opt,name=userId,proto3" json:"userId,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ActivateReservationRequest) Reset()         { *m = ActivateReservationRequest{} }
+func (m *ActivateReservationRequest) String() string { return proto.CompactTextString(m) }
+func (*ActivateReservationRequest) ProtoMessage()    {}
+func (*ActivateReservationRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_6ca36e7c14b0b8c5, []int{24}
+}
+
+func (m *ActivateReservationRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ActivateReservationRequest.Unmarshal(m, b)
+}
+func (m *ActivateReservationRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ActivateReservationRequest.Marshal(b, m, deterministic)
+}
+func (m *ActivateReservationRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ActivateReservationRequest.Merge(m, src)
+}
+func (m *ActivateReservationRequest) XXX_Size() int {
+	return xxx_messageInfo_ActivateReservationRequest.Size(m)
+}
+func (m *ActivateReservationRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ActivateReservationRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ActivateReservationRequest proto.InternalMessageInfo
+
+func (m *ActivateReservationRequest) GetReservationId() int32 {
+	if m != nil {
+		return m.ReservationId
+	}
+	return 0
+}
+
+func (m *ActivateReservationRequest) GetUserId() int32 {
+	if m != nil {
+		return m.UserId
+	}
+	return 0
+}
+
+type ReservationResponse struct {
+	Reservation          *Reservation `protobuf:"bytes,1,opt,name=reservation,proto3" json:"reservation,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
+}
+
+func (m *ReservationResponse) Reset()         { *m = ReservationResponse{} }
+func (m *ReservationResponse) String() string { return proto.CompactTextString(m) }
+func (*ReservationResponse) ProtoMessage()    {}
+func (*ReservationResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_6ca36e7c14b0b8c5, []int{25}
+}
+
+func (m *ReservationResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReservationResponse.Unmarshal(m, b)
+}
+func (m *ReservationResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReservationResponse.Marshal(b, m, deterministic)
+}
+func (m *ReservationResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReservationResponse.Merge(m, src)
+}
+func (m *ReservationResponse) XXX_Size() int {
+	return xxx_messageInfo_ReservationResponse.Size(m)
+}
+func (m *ReservationResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReservationResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ReservationResponse proto.InternalMessageInfo
+
+func (m *ReservationResponse) GetReservation() *Reservation {
+	if m != nil {
+		return m.Reservation
+	}
+	return nil
+}
+
+type Reservation struct {
+	Id                   int32    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	UserId               int32    `protobuf:"varint,2,opt,name=userId,proto3" json:"userId,omitempty"`
+	ShowId               int32    `protobuf:"varint,3,opt,name=showId,proto3" json:"showId,omitempty"`
+	Seats                []*Seat  `protobuf:"bytes,4,rep,name=seats,proto3" json:"seats,omitempty"`
+	Active               bool     `protobuf:"varint,5,opt,name=active,proto3" json:"active,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Reservation) Reset()         { *m = Reservation{} }
+func (m *Reservation) String() string { return proto.CompactTextString(m) }
+func (*Reservation) ProtoMessage()    {}
+func (*Reservation) Descriptor() ([]byte, []int) {
+	return fileDescriptor_6ca36e7c14b0b8c5, []int{26}
+}
+
+func (m *Reservation) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Reservation.Unmarshal(m, b)
+}
+func (m *Reservation) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Reservation.Marshal(b, m, deterministic)
+}
+func (m *Reservation) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Reservation.Merge(m, src)
+}
+func (m *Reservation) XXX_Size() int {
+	return xxx_messageInfo_Reservation.Size(m)
+}
+func (m *Reservation) XXX_DiscardUnknown() {
+	xxx_messageInfo_Reservation.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Reservation proto.InternalMessageInfo
+
+func (m *Reservation) GetId() int32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *Reservation) GetUserId() int32 {
+	if m != nil {
+		return m.UserId
+	}
+	return 0
+}
+
+func (m *Reservation) GetShowId() int32 {
+	if m != nil {
+		return m.ShowId
+	}
+	return 0
+}
+
+func (m *Reservation) GetSeats() []*Seat {
+	if m != nil {
+		return m.Seats
+	}
+	return nil
+}
+
+func (m *Reservation) GetActive() bool {
+	if m != nil {
+		return m.Active
+	}
+	return false
+}
+
+type Seat struct {
+	Row                  int32    `protobuf:"varint,1,opt,name=row,proto3" json:"row,omitempty"`
+	Column               int32    `protobuf:"varint,2,opt,name=column,proto3" json:"column,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Seat) Reset()         { *m = Seat{} }
+func (m *Seat) String() string { return proto.CompactTextString(m) }
+func (*Seat) ProtoMessage()    {}
+func (*Seat) Descriptor() ([]byte, []int) {
+	return fileDescriptor_6ca36e7c14b0b8c5, []int{27}
+}
+
+func (m *Seat) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Seat.Unmarshal(m, b)
+}
+func (m *Seat) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Seat.Marshal(b, m, deterministic)
+}
+func (m *Seat) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Seat.Merge(m, src)
+}
+func (m *Seat) XXX_Size() int {
+	return xxx_messageInfo_Seat.Size(m)
+}
+func (m *Seat) XXX_DiscardUnknown() {
+	xxx_messageInfo_Seat.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Seat proto.InternalMessageInfo
+
+func (m *Seat) GetRow() int32 {
+	if m != nil {
+		return m.Row
+	}
+	return 0
+}
+
+func (m *Seat) GetColumn() int32 {
+	if m != nil {
+		return m.Column
+	}
+	return 0
+}
+
+type GetReservationsForUserRequest struct {
+	UserId               int32    `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetReservationsForUserRequest) Reset()         { *m = GetReservationsForUserRequest{} }
+func (m *GetReservationsForUserRequest) String() string { return proto.CompactTextString(m) }
+func (*GetReservationsForUserRequest) ProtoMessage()    {}
+func (*GetReservationsForUserRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_6ca36e7c14b0b8c5, []int{28}
+}
+
+func (m *GetReservationsForUserRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetReservationsForUserRequest.Unmarshal(m, b)
+}
+func (m *GetReservationsForUserRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetReservationsForUserRequest.Marshal(b, m, deterministic)
+}
+func (m *GetReservationsForUserRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetReservationsForUserRequest.Merge(m, src)
+}
+func (m *GetReservationsForUserRequest) XXX_Size() int {
+	return xxx_messageInfo_GetReservationsForUserRequest.Size(m)
+}
+func (m *GetReservationsForUserRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetReservationsForUserRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetReservationsForUserRequest proto.InternalMessageInfo
+
+func (m *GetReservationsForUserRequest) GetUserId() int32 {
+	if m != nil {
+		return m.UserId
+	}
+	return 0
+}
+
+type GetReservationsForUserResponse struct {
+	Reservations         []*Reservation `protobuf:"bytes,1,rep,name=reservations,proto3" json:"reservations,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
+	XXX_unrecognized     []byte         `json:"-"`
+	XXX_sizecache        int32          `json:"-"`
+}
+
+func (m *GetReservationsForUserResponse) Reset()         { *m = GetReservationsForUserResponse{} }
+func (m *GetReservationsForUserResponse) String() string { return proto.CompactTextString(m) }
+func (*GetReservationsForUserResponse) ProtoMessage()    {}
+func (*GetReservationsForUserResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_6ca36e7c14b0b8c5, []int{29}
+}
+
+func (m *GetReservationsForUserResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetReservationsForUserResponse.Unmarshal(m, b)
+}
+func (m *GetReservationsForUserResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetReservationsForUserResponse.Marshal(b, m, deterministic)
+}
+func (m *GetReservationsForUserResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetReservationsForUserResponse.Merge(m, src)
+}
+func (m *GetReservationsForUserResponse) XXX_Size() int {
+	return xxx_messageInfo_GetReservationsForUserResponse.Size(m)
+}
+func (m *GetReservationsForUserResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetReservationsForUserResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetReservationsForUserResponse proto.InternalMessageInfo
+
+func (m *GetReservationsForUserResponse) GetReservations() []*Reservation {
+	if m != nil {
+		return m.Reservations
+	}
+	return nil
+}
+
+type RemoveReservationRequest struct {
+	UserId               int32    `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
+	ReserId              int32    `protobuf:"varint,2,opt,name=reserId,proto3" json:"reserId,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RemoveReservationRequest) Reset()         { *m = RemoveReservationRequest{} }
+func (m *RemoveReservationRequest) String() string { return proto.CompactTextString(m) }
+func (*RemoveReservationRequest) ProtoMessage()    {}
+func (*RemoveReservationRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_6ca36e7c14b0b8c5, []int{30}
+}
+
+func (m *RemoveReservationRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RemoveReservationRequest.Unmarshal(m, b)
+}
+func (m *RemoveReservationRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RemoveReservationRequest.Marshal(b, m, deterministic)
+}
+func (m *RemoveReservationRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RemoveReservationRequest.Merge(m, src)
+}
+func (m *RemoveReservationRequest) XXX_Size() int {
+	return xxx_messageInfo_RemoveReservationRequest.Size(m)
+}
+func (m *RemoveReservationRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RemoveReservationRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RemoveReservationRequest proto.InternalMessageInfo
+
+func (m *RemoveReservationRequest) GetUserId() int32 {
+	if m != nil {
+		return m.UserId
+	}
+	return 0
+}
+
+func (m *RemoveReservationRequest) GetReserId() int32 {
+	if m != nil {
+		return m.ReserId
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*HelloRequest)(nil), "HelloRequest")
 	proto.RegisterType((*HelloResponse)(nil), "HelloResponse")
@@ -789,51 +1431,89 @@ func init() {
 	proto.RegisterType((*AddShowRequest)(nil), "AddShowRequest")
 	proto.RegisterType((*DeleteShowRequest)(nil), "DeleteShowRequest")
 	proto.RegisterType((*AvailableSeatRequest)(nil), "AvailableSeatRequest")
+	proto.RegisterType((*AddUserRequest)(nil), "AddUserRequest")
+	proto.RegisterType((*DeleteUserRequest)(nil), "DeleteUserRequest")
+	proto.RegisterType((*DeleteUserReservationRequest)(nil), "DeleteUserReservationRequest")
+	proto.RegisterType((*AddUserReservationRequest)(nil), "AddUserReservationRequest")
+	proto.RegisterType((*CheckUserReservationRequest)(nil), "CheckUserReservationRequest")
+	proto.RegisterType((*UserData)(nil), "UserData")
+	proto.RegisterType((*AddReservationRequest)(nil), "AddReservationRequest")
+	proto.RegisterType((*ActivateReservationRequest)(nil), "ActivateReservationRequest")
+	proto.RegisterType((*ReservationResponse)(nil), "ReservationResponse")
+	proto.RegisterType((*Reservation)(nil), "Reservation")
+	proto.RegisterType((*Seat)(nil), "Seat")
+	proto.RegisterType((*GetReservationsForUserRequest)(nil), "GetReservationsForUserRequest")
+	proto.RegisterType((*GetReservationsForUserResponse)(nil), "GetReservationsForUserResponse")
+	proto.RegisterType((*RemoveReservationRequest)(nil), "RemoveReservationRequest")
 }
 
 func init() { proto.RegisterFile("protoconfig.proto", fileDescriptor_6ca36e7c14b0b8c5) }
 
 var fileDescriptor_6ca36e7c14b0b8c5 = []byte{
-	// 655 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x55, 0xdd, 0x6e, 0xd3, 0x4c,
-	0x10, 0x8d, 0x93, 0xa6, 0x49, 0x26, 0x6d, 0xe2, 0xec, 0xd7, 0x7e, 0x8a, 0x2c, 0x40, 0xd1, 0x82,
-	0x20, 0x12, 0xd2, 0xaa, 0x75, 0x50, 0xef, 0x4b, 0x2b, 0x85, 0x5e, 0x80, 0x90, 0x2b, 0x6e, 0xb8,
-	0x73, 0xe3, 0x69, 0x6a, 0xe1, 0x78, 0x8b, 0xbd, 0x69, 0xe0, 0x39, 0x78, 0x0c, 0x5e, 0x88, 0xc7,
-	0x41, 0xbb, 0xde, 0x8d, 0x7f, 0xea, 0x86, 0xbb, 0x9d, 0xc9, 0xcc, 0xec, 0x9c, 0xb3, 0xe7, 0x38,
-	0x30, 0xba, 0x4f, 0xb8, 0xe0, 0x0b, 0x1e, 0xdf, 0x86, 0x4b, 0xa6, 0xce, 0x94, 0xc2, 0xc1, 0x07,
-	0x8c, 0x22, 0xee, 0xe1, 0xf7, 0x35, 0xa6, 0x82, 0x10, 0xd8, 0x8b, 0xfd, 0x15, 0x8e, 0xad, 0x89,
-	0x35, 0xed, 0x79, 0xea, 0x4c, 0xdf, 0xc2, 0xa1, 0xae, 0x49, 0xef, 0x79, 0x9c, 0x22, 0x71, 0xa0,
-	0xbb, 0x4c, 0x10, 0x45, 0x18, 0x2f, 0xc7, 0x4d, 0x55, 0xb8, 0x8d, 0xe9, 0x1b, 0x18, 0x9e, 0x07,
-	0xc1, 0x47, 0xfe, 0x10, 0xa2, 0x99, 0x79, 0x04, 0x6d, 0x11, 0x8a, 0xc8, 0x0c, 0xcd, 0x02, 0xfa,
-	0x05, 0x86, 0xba, 0x60, 0x3b, 0xf7, 0x19, 0xf4, 0xd2, 0xf5, 0x62, 0x81, 0x18, 0x60, 0xa0, 0x8a,
-	0xbb, 0x5e, 0x9e, 0x90, 0x63, 0x16, 0xfe, 0x3a, 0x45, 0x7d, 0x65, 0x16, 0x90, 0x01, 0x34, 0xc3,
-	0x60, 0xdc, 0x9a, 0x58, 0xd3, 0xb6, 0xd7, 0x0c, 0x03, 0xfa, 0x0a, 0xc8, 0x25, 0x46, 0x28, 0xb0,
-	0xb4, 0x42, 0x56, 0x65, 0x6d, 0xab, 0x46, 0x30, 0x9c, 0xa3, 0x28, 0x96, 0xd0, 0x53, 0xe8, 0xa9,
-	0xf8, 0xd2, 0x17, 0x7e, 0xb5, 0x3e, 0x87, 0xd0, 0x2c, 0x42, 0x70, 0xc1, 0xce, 0xa7, 0x68, 0x0c,
-	0x2f, 0x60, 0x2f, 0xf0, 0x85, 0x3f, 0xb6, 0x26, 0xad, 0x69, 0xdf, 0x05, 0xb6, 0x9d, 0xe9, 0xa9,
-	0x3c, 0xfd, 0x0a, 0x83, 0xf3, 0x20, 0xf0, 0x38, 0x5f, 0xed, 0xa0, 0x5c, 0xe6, 0x12, 0xbe, 0x49,
-	0xd5, 0x75, 0x6d, 0x4f, 0x9d, 0xc9, 0x04, 0xfa, 0x29, 0xfa, 0x22, 0xfd, 0x8c, 0x89, 0xc7, 0x37,
-	0x1a, 0x72, 0x31, 0x45, 0x5f, 0xc2, 0x28, 0xc3, 0x5e, 0x1c, 0x5f, 0x85, 0x6e, 0xc3, 0x60, 0x8e,
-	0xa2, 0x50, 0x41, 0x5f, 0xc3, 0xd1, 0x1c, 0xc5, 0x75, 0x18, 0x2f, 0xa3, 0x9d, 0x9d, 0x01, 0x74,
-	0xe5, 0xcf, 0xb5, 0x04, 0x19, 0x10, 0xcd, 0x1a, 0x10, 0xad, 0xa7, 0x41, 0xec, 0x3d, 0x06, 0x71,
-	0xa2, 0x9e, 0x26, 0xdb, 0x43, 0x73, 0xfa, 0xbc, 0xc4, 0x69, 0x8f, 0x99, 0x2d, 0x34, 0xa5, 0xef,
-	0x15, 0xa5, 0xd7, 0x77, 0x7c, 0x63, 0x36, 0x1f, 0x43, 0x67, 0x25, 0x79, 0xbf, 0x32, 0x2b, 0x9a,
-	0x90, 0xfc, 0x0f, 0xfb, 0x09, 0xe7, 0xab, 0xab, 0x40, 0x53, 0xab, 0xa3, 0x9c, 0xba, 0xe2, 0x98,
-	0x2a, 0x01, 0x3f, 0xe0, 0xe8, 0xfc, 0xc1, 0x0f, 0x23, 0xff, 0x26, 0xc2, 0x6b, 0xf4, 0xc5, 0x13,
-	0x75, 0xc4, 0x86, 0x56, 0xc2, 0x37, 0xfa, 0x06, 0x79, 0x94, 0x54, 0x48, 0x8c, 0x86, 0x0a, 0x79,
-	0x96, 0x9a, 0xda, 0x24, 0xa1, 0x40, 0x45, 0x42, 0xd7, 0xcb, 0x02, 0x99, 0x7d, 0xf0, 0xa3, 0x35,
-	0x8e, 0xdb, 0x59, 0x56, 0x05, 0xee, 0x0c, 0x3a, 0x73, 0xe9, 0x30, 0x4c, 0xc8, 0x14, 0xda, 0xca,
-	0x8d, 0xe4, 0x90, 0x15, 0x9d, 0xeb, 0x0c, 0x58, 0xc9, 0xa4, 0xb4, 0xe1, 0xfe, 0xb6, 0xe0, 0x40,
-	0xc9, 0xef, 0x82, 0xc7, 0x22, 0xe1, 0x11, 0x39, 0x81, 0xae, 0xf1, 0x26, 0xb1, 0x59, 0xc5, 0xa6,
-	0x8e, 0xcd, 0x2a, 0x7e, 0xa4, 0x0d, 0x72, 0x06, 0xfd, 0x82, 0x9b, 0xc8, 0x7f, 0xec, 0xb1, 0xb7,
-	0x6a, 0xfb, 0x4e, 0xa1, 0x6b, 0x9c, 0x41, 0x6c, 0x56, 0xb1, 0x9a, 0x33, 0x62, 0x55, 0xdb, 0xd0,
-	0x86, 0xfb, 0xc7, 0x82, 0xbe, 0x7c, 0x58, 0xb3, 0x2c, 0x83, 0x8e, 0x36, 0x0a, 0x19, 0xb2, 0xb2,
-	0x65, 0x6a, 0xaf, 0x7c, 0x07, 0x90, 0x8b, 0x9f, 0x10, 0xf6, 0xc8, 0x09, 0xb5, 0x5d, 0x0c, 0x3a,
-	0x5a, 0x6d, 0x64, 0xc8, 0xca, 0xbe, 0x70, 0x6c, 0x56, 0x11, 0x22, 0x6d, 0x90, 0x19, 0x1c, 0x96,
-	0xbc, 0x42, 0x8e, 0x59, 0x9d, 0x77, 0x9c, 0x5c, 0xa4, 0xb4, 0xe1, 0xfe, 0x6a, 0x42, 0x5f, 0xea,
-	0xaa, 0x0c, 0x4d, 0x66, 0x32, 0x68, 0x05, 0xcd, 0xed, 0x86, 0xa6, 0x5a, 0x0c, 0xb4, 0x7f, 0x75,
-	0x9d, 0x41, 0xef, 0xe2, 0x0e, 0x17, 0xdf, 0xa4, 0x52, 0xc9, 0x31, 0xab, 0x53, 0x6e, 0x6d, 0xdf,
-	0x0c, 0x46, 0x9f, 0xb8, 0x08, 0x6f, 0x7f, 0x66, 0x9f, 0x2e, 0x75, 0x17, 0x29, 0x7c, 0xc8, 0x9e,
-	0x78, 0x70, 0x3b, 0x6b, 0x52, 0xb0, 0xb3, 0x9e, 0x9c, 0x83, 0xba, 0x96, 0x9b, 0x7d, 0xf5, 0x0f,
-	0x34, 0xfb, 0x1b, 0x00, 0x00, 0xff, 0xff, 0x48, 0x5a, 0x90, 0xdb, 0x96, 0x06, 0x00, 0x00,
+	// 1039 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x57, 0xdd, 0x6e, 0xdb, 0x36,
+	0x14, 0xb6, 0xe5, 0x38, 0xb6, 0x8f, 0x93, 0xd8, 0x66, 0x1c, 0x43, 0x55, 0x7e, 0x16, 0x70, 0xc1,
+	0x16, 0x60, 0x18, 0xe1, 0x3a, 0x43, 0x77, 0xb3, 0x9b, 0xb4, 0xd9, 0xd2, 0x0e, 0xdb, 0x30, 0x28,
+	0xe8, 0xc5, 0xba, 0xdd, 0xa8, 0x16, 0x9b, 0x08, 0x93, 0xcd, 0x4e, 0xa2, 0xed, 0xed, 0x76, 0xaf,
+	0xb0, 0xc7, 0xd8, 0x43, 0xec, 0x11, 0x76, 0xbb, 0xc7, 0x19, 0x48, 0x89, 0x12, 0x25, 0x53, 0x2a,
+	0x0a, 0xf4, 0x8e, 0x87, 0xf9, 0xce, 0xe1, 0xf9, 0x3e, 0xf3, 0xf0, 0x53, 0x60, 0xf4, 0x36, 0x62,
+	0x9c, 0xcd, 0xd9, 0xf2, 0x4d, 0x70, 0x4f, 0xe4, 0x1a, 0x63, 0xd8, 0x7b, 0x4e, 0xc3, 0x90, 0xb9,
+	0xf4, 0xb7, 0x15, 0x8d, 0x39, 0x42, 0xb0, 0xb3, 0xf4, 0x16, 0xd4, 0x6e, 0x9e, 0x37, 0x2f, 0x7b,
+	0xae, 0x5c, 0xe3, 0xcf, 0x60, 0x3f, 0xc5, 0xc4, 0x6f, 0xd9, 0x32, 0xa6, 0xc8, 0x81, 0xee, 0x7d,
+	0x44, 0x29, 0x0f, 0x96, 0xf7, 0xb6, 0x25, 0x81, 0x59, 0x8c, 0x3f, 0x85, 0xc1, 0xb5, 0xef, 0x7f,
+	0xcf, 0xd6, 0x01, 0x55, 0x35, 0xc7, 0xd0, 0xe6, 0x01, 0x0f, 0x55, 0xd1, 0x24, 0xc0, 0x2f, 0x61,
+	0x90, 0x02, 0xb2, 0xba, 0x27, 0xd0, 0x8b, 0x57, 0xf3, 0x39, 0xa5, 0x3e, 0xf5, 0x25, 0xb8, 0xeb,
+	0xe6, 0x1b, 0xa2, 0xcc, 0xdc, 0x5b, 0xc5, 0x34, 0x3d, 0x32, 0x09, 0xd0, 0x01, 0x58, 0x81, 0x6f,
+	0xb7, 0xce, 0x9b, 0x97, 0x6d, 0xd7, 0x0a, 0x7c, 0x7c, 0x01, 0xe8, 0x86, 0x86, 0x94, 0xd3, 0x42,
+	0x0b, 0x09, 0xaa, 0x99, 0xa1, 0x46, 0x30, 0xb8, 0xa5, 0x5c, 0x87, 0xe0, 0xc7, 0xd0, 0x93, 0xf1,
+	0x8d, 0xc7, 0xbd, 0x32, 0x3e, 0xa7, 0x60, 0xe9, 0x14, 0x66, 0x30, 0xcc, 0xab, 0xa4, 0x1c, 0xce,
+	0x60, 0xc7, 0xf7, 0xb8, 0x67, 0x37, 0xcf, 0x5b, 0x97, 0xfd, 0x19, 0x90, 0xac, 0xa6, 0x2b, 0xf7,
+	0xf1, 0x2b, 0x38, 0xb8, 0xf6, 0x7d, 0x97, 0xb1, 0x45, 0x8d, 0xe4, 0x62, 0x2f, 0x62, 0x9b, 0x58,
+	0x1e, 0xd7, 0x76, 0xe5, 0x1a, 0x9d, 0x43, 0x3f, 0xa6, 0x1e, 0x8f, 0x7f, 0xa4, 0x91, 0xcb, 0x36,
+	0x29, 0x65, 0x7d, 0x0b, 0x7f, 0x0c, 0xa3, 0x84, 0xbb, 0x5e, 0xbe, 0x4c, 0x7d, 0x08, 0x07, 0xb7,
+	0x94, 0x6b, 0x08, 0xfc, 0x09, 0x8c, 0x6f, 0x29, 0xbf, 0x0b, 0x96, 0xf7, 0x61, 0x6d, 0xa6, 0x0f,
+	0x5d, 0xf1, 0x67, 0xa3, 0x40, 0x8a, 0x84, 0x65, 0x20, 0xd1, 0xaa, 0x26, 0xb1, 0xb3, 0x4d, 0x62,
+	0x2a, 0x7f, 0x9a, 0xa4, 0x8f, 0x54, 0xd3, 0xd3, 0x82, 0xa6, 0x3d, 0xa2, 0xba, 0x48, 0x25, 0x7d,
+	0x2a, 0x25, 0xbd, 0x7b, 0x60, 0x1b, 0xd5, 0xb9, 0x0d, 0x9d, 0x85, 0xd0, 0xfd, 0x85, 0x6a, 0x51,
+	0x85, 0x68, 0x02, 0xbb, 0x11, 0x63, 0x8b, 0x17, 0x7e, 0x2a, 0x6d, 0x1a, 0xe5, 0xd2, 0xe9, 0x65,
+	0xca, 0x02, 0xfc, 0x0e, 0xe3, 0xeb, 0xb5, 0x17, 0x84, 0xde, 0xeb, 0x90, 0xde, 0x51, 0x8f, 0x57,
+	0xe0, 0xd0, 0x10, 0x5a, 0x11, 0xdb, 0xa4, 0x27, 0x88, 0xa5, 0x90, 0x42, 0x70, 0x54, 0x52, 0x88,
+	0xb5, 0xb8, 0x53, 0x9b, 0x28, 0xe0, 0x54, 0x8a, 0xd0, 0x75, 0x93, 0x40, 0xec, 0xae, 0xbd, 0x70,
+	0x45, 0xed, 0x76, 0xb2, 0x2b, 0x03, 0x7c, 0x21, 0x29, 0xbe, 0x8c, 0x69, 0x54, 0x37, 0xa8, 0x19,
+	0x09, 0x1d, 0x58, 0x26, 0xf1, 0x0b, 0x9c, 0xe8, 0xa0, 0x98, 0x46, 0x6b, 0x8f, 0x07, 0x6c, 0xa9,
+	0xf0, 0x13, 0xd8, 0x5d, 0xc5, 0x34, 0xca, 0xa4, 0x4b, 0x23, 0x74, 0x01, 0xfb, 0x51, 0x8e, 0xce,
+	0x04, 0x2c, 0x6e, 0xe2, 0x9f, 0xe0, 0x51, 0xd6, 0xe8, 0x07, 0x2e, 0xfd, 0x39, 0x1c, 0x3f, 0x7b,
+	0xa0, 0xf3, 0x5f, 0x2b, 0x8a, 0x97, 0x79, 0x4e, 0xa1, 0x2b, 0x90, 0xef, 0x31, 0xce, 0x3e, 0x1c,
+	0x89, 0xd1, 0x34, 0xf6, 0x1d, 0x3f, 0xb0, 0x4d, 0xde, 0x77, 0x12, 0xa1, 0x63, 0x68, 0xcb, 0x9b,
+	0x6b, 0x5b, 0xf2, 0x62, 0xb6, 0x89, 0xbc, 0x14, 0xc9, 0x9e, 0x46, 0xb6, 0xa5, 0x93, 0xc5, 0xaf,
+	0xc0, 0xb9, 0x9e, 0xf3, 0x60, 0xed, 0x71, 0x6a, 0x38, 0x6a, 0x4b, 0x8a, 0xa6, 0x41, 0x0a, 0xad,
+	0xb6, 0x55, 0xa8, 0xfd, 0x35, 0x1c, 0x16, 0x6a, 0xa6, 0xf3, 0x43, 0xa0, 0xaf, 0xe5, 0xcb, 0x92,
+	0xfd, 0xd9, 0x1e, 0xd1, 0xa1, 0x3a, 0x00, 0xff, 0xd9, 0x84, 0xbe, 0xf6, 0xc7, 0x2d, 0xf9, 0x2a,
+	0x8e, 0xd7, 0x74, 0x6a, 0x99, 0x75, 0xda, 0x31, 0xeb, 0xe4, 0x09, 0x3d, 0xd4, 0x8d, 0x4f, 0x23,
+	0x3c, 0x85, 0x1d, 0x01, 0x53, 0xc3, 0xd4, 0xcc, 0x87, 0x69, 0x02, 0xbb, 0x73, 0x16, 0xae, 0x16,
+	0x4b, 0x75, 0x7c, 0x12, 0xe1, 0x2f, 0xe1, 0x54, 0xbc, 0x1c, 0x79, 0xe3, 0xf1, 0x37, 0x2c, 0xd2,
+	0x47, 0xa1, 0xe2, 0xfe, 0x61, 0x17, 0xce, 0xaa, 0x12, 0x53, 0x05, 0xa7, 0xb0, 0xa7, 0x09, 0x14,
+	0xa7, 0x2f, 0x51, 0x51, 0xc2, 0x02, 0x02, 0x7f, 0x07, 0xb6, 0x4b, 0x17, 0x6c, 0x4d, 0xdf, 0x63,
+	0x0e, 0x6c, 0xe8, 0xc8, 0x1a, 0x99, 0xb0, 0x2a, 0x9c, 0x5d, 0x41, 0xe7, 0x56, 0x38, 0x2c, 0x8d,
+	0xd0, 0x25, 0xb4, 0xa5, 0x1b, 0xa3, 0x7d, 0xa2, 0x3b, 0xb7, 0x73, 0x40, 0x0a, 0x26, 0x8d, 0x1b,
+	0xb3, 0xbf, 0x9b, 0xb0, 0x27, 0xed, 0xe7, 0x19, 0x5b, 0xf2, 0x88, 0x85, 0x68, 0x0a, 0x5d, 0xe5,
+	0xcd, 0x68, 0x48, 0x4a, 0x36, 0xed, 0x0c, 0x49, 0xc9, 0x8f, 0x71, 0x03, 0x3d, 0x81, 0xbe, 0xe6,
+	0xa6, 0xe8, 0x90, 0x6c, 0x7b, 0xab, 0x31, 0xef, 0x31, 0x74, 0x95, 0x33, 0xa2, 0x21, 0x29, 0x59,
+	0xad, 0x33, 0x22, 0x65, 0xdb, 0xc4, 0x8d, 0xd9, 0x7f, 0xe2, 0xd2, 0x31, 0xb6, 0x50, 0xcd, 0x12,
+	0xe8, 0xa4, 0x46, 0x89, 0x06, 0xa4, 0x68, 0x99, 0xc6, 0x23, 0xbf, 0x00, 0xc8, 0xcd, 0x0f, 0x21,
+	0xb2, 0xe5, 0x84, 0xc6, 0x2c, 0x02, 0x9d, 0xd4, 0x6d, 0xd0, 0x80, 0x14, 0x7d, 0xd1, 0x19, 0x92,
+	0x92, 0x11, 0xe1, 0x06, 0xba, 0x82, 0xfd, 0x82, 0x57, 0xa2, 0x23, 0x62, 0xf2, 0x4e, 0x27, 0x37,
+	0x29, 0xdc, 0x98, 0xfd, 0x65, 0x41, 0x5f, 0xf8, 0x4a, 0x91, 0x9a, 0xd8, 0x49, 0xa8, 0x69, 0x9e,
+	0x53, 0x4f, 0x4d, 0xa6, 0x28, 0x6a, 0xef, 0xca, 0x7a, 0x02, 0x3d, 0xf9, 0x5e, 0xca, 0x29, 0x3a,
+	0x22, 0x26, 0xe7, 0x32, 0xe6, 0x5d, 0xc1, 0xe8, 0x07, 0xc6, 0x83, 0x37, 0x7f, 0x24, 0x9f, 0x2e,
+	0xf2, 0x2c, 0xa4, 0x7d, 0xc8, 0x54, 0xfc, 0xe0, 0xc3, 0x24, 0x49, 0xd2, 0x4e, 0x72, 0x72, 0x0d,
+	0x4c, 0x29, 0xb3, 0x7f, 0x2d, 0xe8, 0x8b, 0x21, 0x2b, 0xaa, 0x22, 0x76, 0x12, 0x55, 0xb4, 0xc9,
+	0xad, 0x57, 0x45, 0xa6, 0x28, 0x55, 0xde, 0x95, 0xf5, 0x1c, 0xc6, 0x26, 0x17, 0x41, 0x27, 0xa4,
+	0xc6, 0x5c, 0x8c, 0x95, 0x6e, 0x00, 0x6d, 0x5b, 0x1d, 0x72, 0x48, 0xa5, 0xff, 0x19, 0xab, 0x7c,
+	0x0b, 0x47, 0x46, 0x3b, 0x46, 0xa7, 0xa4, 0xce, 0xa6, 0x8d, 0x8a, 0xfe, 0x63, 0x01, 0xd2, 0xa0,
+	0x4a, 0xd8, 0xaf, 0x92, 0x4f, 0x4e, 0xad, 0xf6, 0x84, 0x18, 0x8d, 0xae, 0xa2, 0xc1, 0x43, 0x83,
+	0x5f, 0xa1, 0x63, 0x52, 0xed, 0x62, 0xce, 0x98, 0x18, 0x6c, 0x08, 0x37, 0xd0, 0xcf, 0x30, 0x31,
+	0x3f, 0xb4, 0xe8, 0x8c, 0xd4, 0x3e, 0xdd, 0xce, 0x47, 0xa4, 0xfe, 0x85, 0xc6, 0x0d, 0xf4, 0x14,
+	0x46, 0x5b, 0x2f, 0x2e, 0x7a, 0x44, 0xaa, 0x5e, 0x61, 0x13, 0xd9, 0xd7, 0xbb, 0xf2, 0xbf, 0xa2,
+	0xab, 0xff, 0x03, 0x00, 0x00, 0xff, 0xff, 0x75, 0x32, 0x64, 0x86, 0x2a, 0x0d, 0x00, 0x00,
 }

@@ -6,7 +6,8 @@ The following objects can be created any time:
 
 * **Users**
     ```
-    TODO
+	userClient := proto.NewUserControlService("userctrl", service.Client())
+	rsp, err = userClient.AddUser(context.TODO(), &proto.AddUserRequest{Name: "Albert"})
     ```
 * **Rooms**
     ```
@@ -33,7 +34,7 @@ Apart from that the other objects require certain conditions to be created:
     ... the showcontrol service will ask the roomcontrol service about the room data with the given room id via the called function '*GetSingleRoom (GetSingleRoomRequest)*'.
     The room data is then used to get the amount of rows and seats which could possibly be booked by users in a reservation.
     
-     **-> For a show to be created the room with the given id has to exist.**
+     **-> To create a show, the given room has to exist (id).**
      
  * **Reservations**
  
@@ -41,19 +42,22 @@ Apart from that the other objects require certain conditions to be created:
     
     1) Create a reservation request with every relevant information:
         ```
-        TODO
+		response := proto.RequestResponse{}
+		error = ReservationControl.AddReservation(context.TODO(), &proto.AddReservationRequest{UserId: 0, ShowId: 0, Seats: []*proto.Seat{{Row: 1, Column: 2}, {Row: 1, Column: 3}}}, &response)
         ```
        If the reservation is valid and no error message is returned, e.g. every wanted seat is not occupied,
-       it can be proceeded with with the second step.
+       it can be proceeded with the second step. We save our error messages inside the response.cause
        
        For checking the occupation of seats the reservation service needs to check on the show service for the current state of the specified seats and show.
        This happens with the function '*CheckSeat (AvailableSeatRequest)*'
          
     2) Activate the reservation
        ```
-        TODO
+	   response := proto.RequestResponse{}
+	   err := ReservationControl.ActivateReservation(context.TODO(), &proto.ActivateReservationRequest{ReservationId: 0, UserId: 0}, &response)
        ```
        When activating the reservation the show service's function '*CheckSeat(...)*' has to be called again but with ceartain write bits set to finally occupy the seats.
+	   The response returns the reservation itself.
     
 #### Object deletion:
  
@@ -67,8 +71,8 @@ Here is a table to show which service notifies which other service:
 |:--------------------------------------------:|:--------------------------------:|:------------------:|:------------------------------:|
 | DeleteMovie (DeleteMovieRequest)             | Moviecontrol       | Showcontrol        | NotifyMovieDelete (MovieData)                |
 | DeleteRoom (DeleteRoomRequest)               | Roomcontrol        | Showcontrol        | NotifyRoomDelete (RoomData)                  |
-| DeleteShow (DeleteShowRequest)               | Showcontrol        | Reservationcontrol |                                              |
-| RemoveReservation (RemoveReservationRequest) | Reservationcontrol |  Usercontrol       |                                              |
-| RemoveReservation (RemoveReservationRequest) | Reservationcontrol |  Showcontrol       | CheckSeat (AvailableSeatRequest)             |
+| DeleteShow (DeleteShowRequest)               | Showcontrol        | Reservationcontrol | RemoveReservation(RemoveReservationRequest)  |
+| RemoveReservation (RemoveReservationRequest) | Reservationcontrol | Usercontrol        | DeleteUserReservation(DeleteUserReservationRequest) |
+| RemoveReservation (RemoveReservationRequest) | Reservationcontrol | Showcontrol        | CheckSeat (AvailableSeatRequest)             |
 | DeleteUser (DeleteUserRequest)               | Usercontrol        | Reservationcontrol | RemoveReservation (RemoveReservationRequest) |
 

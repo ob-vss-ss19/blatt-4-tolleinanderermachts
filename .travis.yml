@@ -11,4 +11,6 @@ script:
     - go test -cover ./moviecontrol/moviecontrol.go ./moviecontrol/moviecontrol_test.go
     - go test -cover ./roomcontrol/roomcontrol.go ./roomcontrol/roomcontrol_test.go
     - go test -cover ./showcontrol/showcontrol.go ./showcontrol/showcontrol_test.go
+    - go test -cover ./usercontrol/usercontrol.go ./usercontrol/usercontrol_test.go
+    - go test -cover ./reservationcontrol/reservation.go ./reservationcontrol/reservationcontrol_test.go
     - golangci-lint run --deadline 20m --enable-all

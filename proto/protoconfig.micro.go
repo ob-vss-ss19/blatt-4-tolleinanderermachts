@@ -419,3 +419,240 @@ func (h *showControlHandler) NotifyMovieDelete(ctx context.Context, in *MovieDat
 func (h *showControlHandler) NotifyRoomDelete(ctx context.Context, in *RoomData, out *RequestResponse) error {
 	return h.ShowControlHandler.NotifyRoomDelete(ctx, in, out)
 }
+
+// Client API for UserControl service
+
+type UserControlService interface {
+	AddUser(ctx context.Context, in *AddUserRequest, opts ...client.CallOption) (*RequestResponse, error)
+	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...client.CallOption) (*RequestResponse, error)
+	CheckUserReservation(ctx context.Context, in *CheckUserReservationRequest, opts ...client.CallOption) (*RequestResponse, error)
+	AddUserReservation(ctx context.Context, in *AddUserReservationRequest, opts ...client.CallOption) (*RequestResponse, error)
+	DeleteUserReservation(ctx context.Context, in *DeleteUserReservationRequest, opts ...client.CallOption) (*RequestResponse, error)
+}
+
+type userControlService struct {
+	c    client.Client
+	name string
+}
+
+func NewUserControlService(name string, c client.Client) UserControlService {
+	if c == nil {
+		c = client.NewClient()
+	}
+	if len(name) == 0 {
+		name = "usercontrol"
+	}
+	return &userControlService{
+		c:    c,
+		name: name,
+	}
+}
+
+func (c *userControlService) AddUser(ctx context.Context, in *AddUserRequest, opts ...client.CallOption) (*RequestResponse, error) {
+	req := c.c.NewRequest(c.name, "UserControl.AddUser", in)
+	out := new(RequestResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userControlService) DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...client.CallOption) (*RequestResponse, error) {
+	req := c.c.NewRequest(c.name, "UserControl.DeleteUser", in)
+	out := new(RequestResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userControlService) CheckUserReservation(ctx context.Context, in *CheckUserReservationRequest, opts ...client.CallOption) (*RequestResponse, error) {
+	req := c.c.NewRequest(c.name, "UserControl.CheckUserReservation", in)
+	out := new(RequestResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userControlService) AddUserReservation(ctx context.Context, in *AddUserReservationRequest, opts ...client.CallOption) (*RequestResponse, error) {
+	req := c.c.NewRequest(c.name, "UserControl.AddUserReservation", in)
+	out := new(RequestResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userControlService) DeleteUserReservation(ctx context.Context, in *DeleteUserReservationRequest, opts ...client.CallOption) (*RequestResponse, error) {
+	req := c.c.NewRequest(c.name, "UserControl.DeleteUserReservation", in)
+	out := new(RequestResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Server API for UserControl service
+
+type UserControlHandler interface {
+	AddUser(context.Context, *AddUserRequest, *RequestResponse) error
+	DeleteUser(context.Context, *DeleteUserRequest, *RequestResponse) error
+	CheckUserReservation(context.Context, *CheckUserReservationRequest, *RequestResponse) error
+	AddUserReservation(context.Context, *AddUserReservationRequest, *RequestResponse) error
+	DeleteUserReservation(context.Context, *DeleteUserReservationRequest, *RequestResponse) error
+}
+
+func RegisterUserControlHandler(s server.Server, hdlr UserControlHandler, opts ...server.HandlerOption) error {
+	type userControl interface {
+		AddUser(ctx context.Context, in *AddUserRequest, out *RequestResponse) error
+		DeleteUser(ctx context.Context, in *DeleteUserRequest, out *RequestResponse) error
+		CheckUserReservation(ctx context.Context, in *CheckUserReservationRequest, out *RequestResponse) error
+		AddUserReservation(ctx context.Context, in *AddUserReservationRequest, out *RequestResponse) error
+		DeleteUserReservation(ctx context.Context, in *DeleteUserReservationRequest, out *RequestResponse) error
+	}
+	type UserControl struct {
+		userControl
+	}
+	h := &userControlHandler{hdlr}
+	return s.Handle(s.NewHandler(&UserControl{h}, opts...))
+}
+
+type userControlHandler struct {
+	UserControlHandler
+}
+
+func (h *userControlHandler) AddUser(ctx context.Context, in *AddUserRequest, out *RequestResponse) error {
+	return h.UserControlHandler.AddUser(ctx, in, out)
+}
+
+func (h *userControlHandler) DeleteUser(ctx context.Context, in *DeleteUserRequest, out *RequestResponse) error {
+	return h.UserControlHandler.DeleteUser(ctx, in, out)
+}
+
+func (h *userControlHandler) CheckUserReservation(ctx context.Context, in *CheckUserReservationRequest, out *RequestResponse) error {
+	return h.UserControlHandler.CheckUserReservation(ctx, in, out)
+}
+
+func (h *userControlHandler) AddUserReservation(ctx context.Context, in *AddUserReservationRequest, out *RequestResponse) error {
+	return h.UserControlHandler.AddUserReservation(ctx, in, out)
+}
+
+func (h *userControlHandler) DeleteUserReservation(ctx context.Context, in *DeleteUserReservationRequest, out *RequestResponse) error {
+	return h.UserControlHandler.DeleteUserReservation(ctx, in, out)
+}
+
+// Client API for ReservationControl service
+
+type ReservationControlService interface {
+	AddReservation(ctx context.Context, in *AddReservationRequest, opts ...client.CallOption) (*RequestResponse, error)
+	ActivateReservation(ctx context.Context, in *ActivateReservationRequest, opts ...client.CallOption) (*ReservationResponse, error)
+	GetReservationsForUser(ctx context.Context, in *GetReservationsForUserRequest, opts ...client.CallOption) (*GetReservationsForUserResponse, error)
+	RemoveReservation(ctx context.Context, in *RemoveReservationRequest, opts ...client.CallOption) (*RequestResponse, error)
+}
+
+type reservationControlService struct {
+	c    client.Client
+	name string
+}
+
+func NewReservationControlService(name string, c client.Client) ReservationControlService {
+	if c == nil {
+		c = client.NewClient()
+	}
+	if len(name) == 0 {
+		name = "reservationcontrol"
+	}
+	return &reservationControlService{
+		c:    c,
+		name: name,
+	}
+}
+
+func (c *reservationControlService) AddReservation(ctx context.Context, in *AddReservationRequest, opts ...client.CallOption) (*RequestResponse, error) {
+	req := c.c.NewRequest(c.name, "ReservationControl.AddReservation", in)
+	out := new(RequestResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *reservationControlService) ActivateReservation(ctx context.Context, in *ActivateReservationRequest, opts ...client.CallOption) (*ReservationResponse, error) {
+	req := c.c.NewRequest(c.name, "ReservationControl.ActivateReservation", in)
+	out := new(ReservationResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *reservationControlService) GetReservationsForUser(ctx context.Context, in *GetReservationsForUserRequest, opts ...client.CallOption) (*GetReservationsForUserResponse, error) {
+	req := c.c.NewRequest(c.name, "ReservationControl.GetReservationsForUser", in)
+	out := new(GetReservationsForUserResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *reservationControlService) RemoveReservation(ctx context.Context, in *RemoveReservationRequest, opts ...client.CallOption) (*RequestResponse, error) {
+	req := c.c.NewRequest(c.name, "ReservationControl.RemoveReservation", in)
+	out := new(RequestResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Server API for ReservationControl service
+
+type ReservationControlHandler interface {
+	AddReservation(context.Context, *AddReservationRequest, *RequestResponse) error
+	ActivateReservation(context.Context, *ActivateReservationRequest, *ReservationResponse) error
+	GetReservationsForUser(context.Context, *GetReservationsForUserRequest, *GetReservationsForUserResponse) error
+	RemoveReservation(context.Context, *RemoveReservationRequest, *RequestResponse) error
+}
+
+func RegisterReservationControlHandler(s server.Server, hdlr ReservationControlHandler, opts ...server.HandlerOption) error {
+	type reservationControl interface {
+		AddReservation(ctx context.Context, in *AddReservationRequest, out *RequestResponse) error
+		ActivateReservation(ctx context.Context, in *ActivateReservationRequest, out *ReservationResponse) error
+		GetReservationsForUser(ctx context.Context, in *GetReservationsForUserRequest, out *GetReservationsForUserResponse) error
+		RemoveReservation(ctx context.Context, in *RemoveReservationRequest, out *RequestResponse) error
+	}
+	type ReservationControl struct {
+		reservationControl
+	}
+	h := &reservationControlHandler{hdlr}
+	return s.Handle(s.NewHandler(&ReservationControl{h}, opts...))
+}
+
+type reservationControlHandler struct {
+	ReservationControlHandler
+}
+
+func (h *reservationControlHandler) AddReservation(ctx context.Context, in *AddReservationRequest, out *RequestResponse) error {
+	return h.ReservationControlHandler.AddReservation(ctx, in, out)
+}
+
+func (h *reservationControlHandler) ActivateReservation(ctx context.Context, in *ActivateReservationRequest, out *ReservationResponse) error {
+	return h.ReservationControlHandler.ActivateReservation(ctx, in, out)
+}
+
+func (h *reservationControlHandler) GetReservationsForUser(ctx context.Context, in *GetReservationsForUserRequest, out *GetReservationsForUserResponse) error {
+	return h.ReservationControlHandler.GetReservationsForUser(ctx, in, out)
+}
+
+func (h *reservationControlHandler) RemoveReservation(ctx context.Context, in *RemoveReservationRequest, out *RequestResponse) error {
+	return h.ReservationControlHandler.RemoveReservation(ctx, in, out)
+}

@@ -115,3 +115,95 @@ message AvailableSeatRequest {
     bool write = 4;
     bool value = 5;
 }
+
+service UserControl {
+    rpc AddUser (AddUserRequest) returns (RequestResponse) {
+    }
+    rpc DeleteUser (DeleteUserRequest) returns (RequestResponse) {
+    }
+    rpc CheckUserReservation (CheckUserReservationRequest) returns (RequestResponse) {
+    }
+    rpc AddUserReservation (AddUserReservationRequest) returns (RequestResponse) {
+    }
+    rpc DeleteUserReservation (DeleteUserReservationRequest) returns (RequestResponse) {
+    }
+}
+
+message AddUserRequest {
+    string name = 1;
+}
+
+message DeleteUserRequest {
+    int32 id = 1;
+}
+
+message DeleteUserReservationRequest {
+    int32 userId = 1;
+    int32 reservationId = 2;
+}
+
+message AddUserReservationRequest {
+    int32 userId = 1;
+    int32 reservationId = 2;
+}
+
+message CheckUserReservationRequest {
+    int32 id = 1;
+}
+
+message UserData {
+    int32 id = 1;
+    string title = 2;
+}
+
+service ReservationControl {
+    rpc AddReservation (AddReservationRequest) returns (RequestResponse) {
+    }
+    rpc ActivateReservation (ActivateReservationRequest) returns (ReservationResponse) {
+    }
+    rpc GetReservationsForUser (GetReservationsForUserRequest) returns (GetReservationsForUserResponse) {
+    }
+    rpc RemoveReservation (RemoveReservationRequest) returns (RequestResponse) {
+    }
+}
+
+message AddReservationRequest{
+    int32 showId = 1;
+    repeated Seat seats = 2;
+	int32 userId = 3;
+}
+
+message ActivateReservationRequest{
+    int32 reservationId = 1;
+    int32 userId = 2;
+}
+
+message ReservationResponse {
+    Reservation reservation = 1;
+}
+
+message Reservation{
+	int32 id = 1;
+	int32 userId = 2;
+	int32 showId = 3;
+	repeated Seat seats = 4;
+	bool active = 5;
+}
+
+message Seat{
+	int32 row = 1;
+	int32 column = 2;
+}
+
+message GetReservationsForUserRequest {
+    int32 userId = 1;
+}
+
+message GetReservationsForUserResponse {
+	repeated Reservation reservations = 1;
+}
+
+message RemoveReservationRequest {
+    int32 userId = 1;
+    int32 reserId = 2;
+}
