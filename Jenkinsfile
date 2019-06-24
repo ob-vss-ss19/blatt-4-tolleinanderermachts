@@ -40,7 +40,7 @@ pipeline {
                 sh "docker-build-and-push -b ${BRANCH_NAME} -s roomcontrol -f roomcontrol.dockerfile"
                 sh "docker-build-and-push -b ${BRANCH_NAME} -s showcontrol -f showcontrol.dockerfile"
                 sh "docker-build-and-push -b ${BRANCH_NAME} -s usercontrol -f usercontrol.dockerfile"
-                sh "docker-build-and-push -b ${BRANCH_NAME} -s reservationcontrol -f reservation.dockerfile"
+                sh "docker-build-and-push -b ${BRANCH_NAME} -s reservationcontrol -f reservationcontrol.dockerfile"
             }
         }
     }
