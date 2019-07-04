@@ -62,6 +62,13 @@ func (ctrl *ReservationControl) ActivateReservation(ctx context.Context,
 			return nil
 		}
 	}
+
+	callerUser := proto.NewUserControlService("userctrl", ctrl.Service.Client())
+	result, _ := callerUser.AddUserReservation(context.TODO(), &proto.AddUserReservationRequest{UserId: req.UserId, ReservationId: req.ReservationId})
+	if !result.Succeeded {
+		fmt.Printf("user reservation notify did not work : %s\n", result.Cause)
+	}
+
 	reservation := ctrl.Reservations[req.ReservationId]
 	reservation.Active = true
 	ctrl.Reservations[req.ReservationId] = reservation
