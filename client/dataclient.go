@@ -89,6 +89,47 @@ func main() {
 	} else {
 		fmt.Println("Adding second reservation FAILED, cause: " + rsp.Cause)
 	}
+
+	fmt.Print("2 Szenario\n")
+	fmt.Print("==========\n\n")
+
+	rsp, err = resClient.AddReservation(context.TODO(),
+		&proto.AddReservationRequest{UserId: 1, ShowId: 2, Seats: []*proto.Seat{{Row: 1, Column: 1}}})
+	if err != nil {
+		fmt.Println(err)
+	}
+	id01 := rsp.Id
+	if rsp.Succeeded {
+		fmt.Println("Adding second reservation succeeded")
+	} else {
+		fmt.Println("Adding second reservation FAILED, cause: " + rsp.Cause)
+	}
+
+	rsp, err = resClient.AddReservation(context.TODO(),
+		&proto.AddReservationRequest{UserId: 2, ShowId: 2, Seats: []*proto.Seat{{Row: 1, Column: 1}}})
+	if err != nil {
+		fmt.Println(err)
+	}
+	id02 := rsp.Id
+	if rsp.Succeeded {
+		fmt.Println("Adding second reservation succeeded")
+	} else {
+		fmt.Println("Adding second reservation FAILED, cause: " + rsp.Cause)
+	}
+
+	////
+	_, err = resClient.ActivateReservation(context.TODO(),
+		&proto.ActivateReservationRequest{UserId: 1, ReservationId: id01})
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	_, err = resClient.ActivateReservation(context.TODO(),
+		&proto.ActivateReservationRequest{UserId: 2, ReservationId: id02})
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("No error?\n")
 }
 
 func createMovies(service micro.Service) proto.MovieControlService {

@@ -59,9 +59,17 @@ func (ctrl *ReservationControl) ActivateReservation(ctx context.Context,
 		b := showData.Succeeded
 		if !b {
 			fmt.Printf("Seat is already reservated: row = %d, col = %d\n", v.Row, v.Column)
-			return nil
+			return fmt.Errorf("seat is already reservated: row = %d, col = %d", v.Row, v.Column)
 		}
 	}
+
+	callerUser := proto.NewUserControlService("userctrl", ctrl.Service.Client())
+	result, _ := callerUser.AddUserReservation(context.TODO(),
+		&proto.AddUserReservationRequest{UserId: req.UserId, ReservationId: req.ReservationId})
+	if !result.Succeeded {
+		fmt.Printf("user reservation notify did not work : %s\n", result.Cause)
+	}
+
 	reservation := ctrl.Reservations[req.ReservationId]
 	reservation.Active = true
 	ctrl.Reservations[req.ReservationId] = reservation
