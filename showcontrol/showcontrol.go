@@ -83,7 +83,7 @@ func (ctrl *ShowControl) CheckSeat(ctx context.Context,
 
 		} else {
 			fmt.Printf("writing seat %d:%d with: %t\n", req.Row, req.Seat, req.Value)
-			if show.Seats[req.Row][req.Seat] == true && req.Value == true {
+			if show.Seats[req.Row][req.Seat] && req.Value {
 				println("writing true on an occupied seat is false -> seat occupied")
 				rsp.Succeeded = false
 				rsp.Cause = "seat occupied"
