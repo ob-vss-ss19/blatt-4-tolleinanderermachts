@@ -59,7 +59,7 @@ func (ctrl *ReservationControl) ActivateReservation(ctx context.Context,
 		b := showData.Succeeded
 		if !b {
 			fmt.Printf("Seat is already reservated: row = %d, col = %d\n", v.Row, v.Column)
-			return fmt.Errorf("Seat is already reservated: row = %d, col = %d\n", v.Row, v.Column)
+			return fmt.Errorf("seat is already reservated: row = %d, col = %d\n", v.Row, v.Column)
 		}
 	}
 
